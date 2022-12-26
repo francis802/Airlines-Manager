@@ -1,5 +1,7 @@
 #include "Airline.h"
 
+Airline::Airline(const string &code): code(code) {}
+
 Airline::Airline(const string &code, const string &name, const string &callsign, const string &country) : code(code),
     name(name), callsign(callsign), country(country) {}
 

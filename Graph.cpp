@@ -6,7 +6,7 @@
 
 Graph::Graph(int nodes): nodes(nodes) {}
 
-void Graph::addFlight(int src, int dest, Airline airline) {
+void Graph::addFlight(int src, int dest, const Airline* airline) {
     if (src<1 || src>n || dest<1 || dest>n) return;
     nodes[src].adj.push_back({dest, airline});
 }

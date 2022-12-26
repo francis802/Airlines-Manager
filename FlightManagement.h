@@ -6,20 +6,24 @@
 
 #include "Airport.h"
 #include "Airline.h"
+#include "Graph.h"
 
 using namespace std;
 
 class FlightManagement {
 public:
-    FlightManagement();
+    FlightManagement(string airports, string airlines, string flights);
 
-    void getDataAirport(string filename);
+    int getDataAirport(string filename);
     void getDataAirline(string filename);
+    void getDataFlights(string filename);
 
 private:
     unordered_map<Airport,int, AirportHash> airport_node;
     unordered_set<Airline, AirlineHash> airlines;
     unordered_map<string, Airport*> city_airports;
+
+    Graph flights;
 };
 
 

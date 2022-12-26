@@ -7,11 +7,13 @@ using namespace std;
 
 class Airport {
 public:
-    Airport(const string &code, const string &name, const string &city, double latitude, double longitude);
+    Airport(const string &code);
+    Airport(const string &code, const string &name, const string &city, const string &country, double latitude, double longitude);
 
     const string &getCode() const;
     const string &getName() const;
     const string &getCity() const;
+    const string &getCountry() const;
     double getLatitude() const;
     double getLongitude() const;
 
@@ -21,21 +23,19 @@ private:
     string code;
     string name;
     string city;
+    string country;
     double latitude;
     double longitude;
 };
 
 struct AirportHash{
-    int operator() (const Airport& airport) const{
-        return (((((hash<string>() (airport.getCode())
+    size_t operator() (Airport const& airport) const{
+        return ((((((hash<string>() (airport.getCode())
                     ^ (hash<string>() (airport.getName()) << 1)) >> 1)
                   ^ (hash<string>() (airport.getCity()) << 1) >> 1)
+                 ^ (hash<string>() (airport.getCountry()) << 1) >> 1)
                  ^ (hash<double>() (airport.getLatitude()) << 1) >> 1)
                 ^ (hash<double>() (airport.getLongitude()) << 1) >> 1);
-    }
-
-    bool operator() (const Airport& a1, const Airport& a2) const{
-        return a1.getCode() == a2.getCode();
     }
 };
 

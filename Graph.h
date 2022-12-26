@@ -10,7 +10,7 @@ class Graph {
 private:
     struct Edge{
         int dest;
-        Airline airline;
+        const Airline* airline;
     };
 
     struct Node{
@@ -24,7 +24,7 @@ private:
 public:
     Graph(int nodes);
 
-    void addFlight(int src, int dest, Airline airline);
+    void addFlight(int src, int dest, const Airline* airline);
 };
 
 

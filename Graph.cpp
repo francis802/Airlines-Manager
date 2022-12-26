@@ -1,10 +1,7 @@
-//
-// Created by tomas on 26-12-2022.
-//
-
 #include "Graph.h"
 
-Graph::Graph(int nodes): nodes(nodes) {}
+Graph::Graph() {}
+Graph::Graph(int num): n(num), nodes(num+1) {}
 
 void Graph::addFlight(int src, int dest, const Airline* airline) {
     if (src<1 || src>n || dest<1 || dest>n) return;

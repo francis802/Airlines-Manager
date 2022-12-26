@@ -26,10 +26,7 @@ private:
 
 struct AirlineHash{
     size_t operator() (Airline const& airline) const{
-        return ((((hash<string>() (airline.getCode())
-                    ^ (hash<string>() (airline.getName()) << 1)) >> 1)
-                  ^ (hash<string>() (airline.getCallsign()) << 1) >> 1)
-                 ^ (hash<string>() (airline.getCountry()) << 1) >> 1);
+        return hash<string>() (airline.getCode());
     }
 };
 

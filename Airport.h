@@ -30,12 +30,7 @@ private:
 
 struct AirportHash{
     size_t operator() (Airport const& airport) const{
-        return ((((((hash<string>() (airport.getCode())
-                    ^ (hash<string>() (airport.getName()) << 1)) >> 1)
-                  ^ (hash<string>() (airport.getCity()) << 1) >> 1)
-                 ^ (hash<string>() (airport.getCountry()) << 1) >> 1)
-                 ^ (hash<double>() (airport.getLatitude()) << 1) >> 1)
-                ^ (hash<double>() (airport.getLongitude()) << 1) >> 1);
+        return hash<string>() (airport.getCode());
     }
 };
 

@@ -21,7 +21,7 @@ public:
 private:
     unordered_map<Airport,int, AirportHash> airport_node;
     unordered_set<Airline, AirlineHash> airlines;
-    unordered_map<string, Airport*> city_airports;
+    unordered_map<string, list<const Airport*>> city_airports;
 
     Graph flights;
 };

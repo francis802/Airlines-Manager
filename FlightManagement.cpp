@@ -2,7 +2,9 @@
 #include <sstream>
 #include "FlightManagement.h"
 
-FlightManagement::FlightManagement(string airports, string airlines, string flights): flights(getDataAirport(airports)) {
+FlightManagement::FlightManagement(string airports, string airlines, string flights) {
+    int num_airports = getDataAirport(airports);
+    this->flights = Graph(num_airports);
     getDataAirline(airlines);
     getDataFlights(flights);
 }
@@ -23,7 +25,14 @@ int FlightManagement::getDataAirport(string filename) {
         getline(iss, longitude, '\n');
 
         Airport airport = Airport(code, name, city, country, stod(latitude), stod(longitude));
-        airport_node.insert({airport,node});
+        const Airport* airport_pointer = &(*(airport_node.insert({airport,node}).first)).first;
+
+        auto it = city_airports.find(city);
+        if (it == city_airports.end())
+            city_airports.insert({city,{airport_pointer}});
+        else
+            (*it).second.push_back(airport_pointer);
+
         node++;
     }
     return node - 1;
@@ -57,10 +66,10 @@ void FlightManagement::getDataFlights(string filename) {
         getline(iss, target, ',');
         getline(iss, airline, '\n');
 
-        /*int src = airport_node.find(Airport(source))->second;
+        int src = airport_node.find(Airport(source))->second;
         int dest = airport_node.find(Airport(target))->second;
         const Airline* a = &(*(airlines.find(Airline(airline))));
 
-        flights.addFlight(src,dest, a);*/
+        flights.addFlight(src,dest, a);
     }
 }

@@ -22,7 +22,8 @@ private:
     vector<Node> nodes;
 
 public:
-    Graph(int nodes);
+    Graph();
+    Graph(int num);
 
     void addFlight(int src, int dest, const Airline* airline);
 };

@@ -3,4 +3,4 @@ project(networkManager)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(networkManager main.cpp)
+add_executable(networkManager main.cpp Airport.cpp Airport.h Airline.cpp Airline.h Graph.cpp Graph.h FlightManagement.cpp FlightManagement.h)

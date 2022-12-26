@@ -73,3 +73,19 @@ void FlightManagement::getDataFlights(string filename) {
         flights.addFlight(src,dest, a);
     }
 }
+
+const unordered_map<Airport, int, AirportHash> &FlightManagement::getAirportNode() const {
+    return airport_node;
+}
+
+const unordered_set<Airline, AirlineHash> &FlightManagement::getAirlines() const {
+    return airlines;
+}
+
+const unordered_map<string, list<const Airport *>> &FlightManagement::getCityAirports() const {
+    return city_airports;
+}
+
+const Graph &FlightManagement::getFlights() const {
+    return flights;
+}

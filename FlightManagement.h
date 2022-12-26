@@ -18,6 +18,10 @@ public:
     void getDataAirline(string filename);
     void getDataFlights(string filename);
 
+    const unordered_map<Airport, int, AirportHash> &getAirportNode() const;
+    const unordered_set<Airline, AirlineHash> &getAirlines() const;
+    const unordered_map<string, list<const Airport *>> &getCityAirports() const;
+
 private:
     unordered_map<Airport,int, AirportHash> airport_node;
     unordered_set<Airline, AirlineHash> airlines;

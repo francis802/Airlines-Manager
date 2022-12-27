@@ -9,6 +9,10 @@ public:
     explicit MenuInfo(const FlightManagement &management);
 
     bool start();
+
+    void printAirportsInfo(string identifier, unordered_map<Airport, int, AirportHash> airports);
+
+    void printAirportInfo(Airport airport);
 };
 
 

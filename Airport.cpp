@@ -1,5 +1,7 @@
 #include "Airport.h"
 
+Airport::Airport() {}
+
 Airport::Airport(const string &code): code(code) {}
 
 Airport::Airport(const string &code, const string &name, const string &city, const string &country, double latitude, double longitude) :
@@ -31,4 +33,8 @@ double Airport::getLongitude() const {
 
 bool Airport::operator==(const Airport &rhs) const {
     return code == rhs.code;
+}
+
+void Airport::setName(const string &name) {
+    Airport::name = name;
 }

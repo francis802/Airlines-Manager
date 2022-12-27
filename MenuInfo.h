@@ -10,6 +10,11 @@ public:
 
     bool start();
 
+    void airportByCode(unordered_map<Airport,int,AirportHash> airports);
+    void airportByName(unordered_map<Airport,int,AirportHash> airports);
+    void airportByCity(unordered_map<Airport,int,AirportHash> airports);
+    void airportByCountry(unordered_map<Airport,int,AirportHash> airports);
+
     void printAirportsInfo(string identifier, unordered_map<Airport, int, AirportHash> airports);
 
     void printAirportInfo(Airport airport);

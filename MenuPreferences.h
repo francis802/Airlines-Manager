@@ -9,6 +9,8 @@ public:
     explicit MenuPreferences(const FlightManagement &management);
 
     bool start();
+    unordered_set<string> readPreferences();
+    void savePreferences(unordered_set<string> preferences);
 };
 
 

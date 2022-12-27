@@ -85,7 +85,3 @@ const unordered_set<Airline, AirlineHash> &FlightManagement::getAirlines() const
 const unordered_map<string, list<const Airport *>> &FlightManagement::getCityAirports() const {
     return city_airports;
 }
-
-const Graph &FlightManagement::getFlights() const {
-    return flights;
-}

@@ -10,9 +10,16 @@ bool MenuTravel::start() {
 
     cout << "-> FROM:\n";
     list<const Airport*> departure = getAirports();
+    while (departure.empty()){
+        cout << "Airport not found!\n\n";
+        departure = getAirports();
+    }
     cout << "-> TO:\n";
     list<const Airport*> arrival = getAirports();
-
+    while (arrival.empty()){
+        cout << "Airport not found!\n\n";
+        arrival = getAirports();
+    }
     return false;
 }
 
@@ -46,17 +53,22 @@ list<const Airport*> MenuTravel::getAirports() {
         if (option == "1"){
             cout << "Airport: ";
             getline(cin, criteria);
-            /*
-             * verificar se o input é um aeroporto quer seja fornecido o código quer seja fornecido o nome
-             * mudar o operator==
-             */
+            auto it = management.getAirportNode().find(Airport(criteria));
+            if (it != management.getAirportNode().end())
+                return {&((*it).first)};
+            else{
+                for (auto i : management.getAirportNode())
+                    if (i.first.getName() == criteria)
+                        return {&i.first};
+            }
+
         } else if (option == "2"){
             cout << "City: ";
             getline(cin, criteria);
             auto it = management.getCityAirports().find(criteria);
             if (it != management.getCityAirports().end())
                 return (*it).second;
-            else cout << "Airport not found!\n\n";
+            else return {};
         } else if (option == "3"){
             string latitude, longitude, distance;
             cout << "Latitude: ";
@@ -77,6 +89,6 @@ list<const Airport*> MenuTravel::getAirports() {
                     airports.push_back(&i.first);
             }
             return airports;
-        }
+        } else cout << "invalid input\n\n";
     }
 }

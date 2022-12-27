@@ -78,7 +78,4 @@ void MenuInfo::printAirportInfo(Airport airport){
                  << "Latitude: " << airport.getLatitude() << "\n"
                  << "Longitude: " << airport.getLongitude() << "\n"
                  << "\n";
-        }
-    }
-    if(!found) cout << "Country doesn't have airports\n";
 }

@@ -14,8 +14,7 @@ public:
     void airportByName(unordered_map<Airport,int,AirportHash> airports);
     void airportByCity(unordered_map<Airport,int,AirportHash> airports);
     void airportByCountry(unordered_map<Airport,int,AirportHash> airports);
-
-    void printAirportsInfo(string identifier, unordered_map<Airport, int, AirportHash> airports);
+    void airportByLocation(unordered_map<Airport,int,AirportHash> airports);
 
     void printAirportInfo(Airport airport);
 };

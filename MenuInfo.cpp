@@ -20,6 +20,7 @@ bool MenuInfo::start() {
         if (option == "2") airportByName(airports);
         if (option == "3") airportByCity(airports);
         if (option == "4") airportByCountry(airports);
+        if (option == "5") airportByLocation(airports);
         if (option == "r") return false;
         if (option == "q") return true;
     }
@@ -86,4 +87,61 @@ void MenuInfo::airportByCountry(unordered_map<Airport, int, AirportHash> airport
         }
     }
     if(!found) cout << "Country doesn't have airports\n";
+}
+
+void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airports) {
+    bool found = false;
+    string stringInput;
+    float minLat, maxLat, minLon, maxLon;
+    int i = 0;
+    vector<string> messages = {"Min Latitude: ", "Max Latitude: ", "Min Longitude: ", "Max Longitude: "};
+    while (i<4){
+        cout << '\n' << messages[i];
+        getline(cin, stringInput);
+        if (i == 0){
+            try{
+                minLat = stof(stringInput);
+            }
+            catch (invalid_argument){
+                cout << "Invalid Input\n";
+                continue;
+            }
+        }
+        if (i == 1){
+            try{
+                maxLat = stof(stringInput);
+            }
+            catch (invalid_argument){
+                cout << "Invalid Input\n";
+                continue;
+            }
+        }
+        if (i == 2){
+            try{
+                minLon = stof(stringInput);
+            }
+            catch (invalid_argument){
+                cout << "Invalid Input\n";
+                continue;
+            }
+        }
+        if (i == 3){
+            try{
+                maxLon = stof(stringInput);
+            }
+            catch (invalid_argument){
+                cout << "Invalid Input\n";
+                continue;
+            }
+        }
+        i++;
+    }
+    for (const auto& airport : airports){
+        if (minLat <= airport.first.getLatitude() && airport.first.getLatitude() <= maxLat
+         && minLon <= airport.first.getLongitude() && airport.first.getLongitude() <= maxLon){
+            printAirportInfo(airport.first);
+            found = true;
+        }
+    }
+    if(!found) cout << "No airport in Location Range\n";
 }

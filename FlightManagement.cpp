@@ -26,6 +26,7 @@ int FlightManagement::getDataAirport(string filename) {
 
         Airport airport = Airport(code, name, city, country, stod(latitude), stod(longitude));
         const Airport* airport_pointer = &(*(airport_node.insert({airport,node}).first)).first;
+        node_airport.insert({node, airport_pointer});
 
         auto it = city_airports.find(city);
         if (it == city_airports.end())
@@ -84,4 +85,12 @@ const unordered_set<Airline, AirlineHash> &FlightManagement::getAirlines() const
 
 const unordered_map<string, list<const Airport *>> &FlightManagement::getCityAirports() const {
     return city_airports;
+}
+
+Graph &FlightManagement::getFlights(){
+    return flights;
+}
+
+const unordered_map<int, const Airport *> &FlightManagement::getNodeAirport() const {
+    return node_airport;
 }

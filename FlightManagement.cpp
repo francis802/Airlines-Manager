@@ -75,6 +75,22 @@ void FlightManagement::getDataFlights(string filename) {
     }
 }
 
+void FlightManagement::savePreferences(unordered_set<string> preferences) {
+    ofstream out("../preferences");
+    for (string s : preferences)
+        out << s << endl;
+}
+
+unordered_set<string> FlightManagement::readPreferences() {
+    ifstream in("../preferences");
+    string line;
+    unordered_set<string> preferences;
+    while (getline(in, line)){
+        preferences.insert(line);
+    }
+    return preferences;
+}
+
 const unordered_map<Airport, int, AirportHash> &FlightManagement::getAirportNode() const {
     return airport_node;
 }

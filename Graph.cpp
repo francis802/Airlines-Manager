@@ -1,4 +1,5 @@
 #include <queue>
+#include <unordered_set>
 #include "Graph.h"
 
 Graph::Graph() {}
@@ -9,26 +10,28 @@ void Graph::addFlight(int src, int dest, const Airline* airline) {
     nodes[src].adj.push_back({dest, airline});
 }
 
-void Graph::bfs(queue<int> q) {
+void Graph::bfs(queue<int> q, unordered_set<string> preferences) {
     for (int i=1; i<=n; i++) {
         nodes[i].visited = false;
         nodes[i].dist = -1;
-        nodes[i].path = -1;
+        nodes[i].path = vector<int>();
     }
     while (!q.empty()) {
         int u = q.front(); q.pop();
-        if (nodes[u].path != -1)
-            nodes[u].dist = nodes[nodes[u].path].dist + 1;
+        if (!nodes[u].path.empty())
+            nodes[u].dist = nodes[nodes[u].path.front()].dist + 1;
         else{
             nodes[u].visited = true;
             nodes[u].dist = 0;
         }
         for (auto e : nodes[u].adj) {
             int w = e.dest;
-            if (!nodes[w].visited) {
-                q.push(w);
+            if (((nodes[w].path.empty() && !nodes[w].visited) || (!nodes[w].path.empty() && nodes[nodes[w].path.front()].dist == nodes[u].dist+1))
+            && (preferences.empty() || preferences.find(e.airline->getCode()) != preferences.end())) {
+                if (nodes[w].path.empty())
+                    q.push(w);
                 nodes[w].visited = true;
-                nodes[w].path = u;
+                nodes[w].path.push_back(u);
             }
         }
     }

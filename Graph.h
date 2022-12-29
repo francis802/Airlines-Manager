@@ -20,7 +20,7 @@ private:
         bool visited;
 
         int dist;
-        int path;
+        vector<int> path;
     };
 
     int n;
@@ -32,7 +32,7 @@ public:
 
     void addFlight(int src, int dest, const Airline* airline);
 
-    void bfs(queue<int> q);
+    void bfs(queue<int> q, unordered_set<string> preferences);
 
     vector<Node> getNodes();
 };

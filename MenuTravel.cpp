@@ -24,36 +24,65 @@ bool MenuTravel::start() {
     }
 
     Graph &flights = management.getFlights();
-    flights.bfs(departure);
-    /*
-     * only shows 1 path per distance
-     */
+    unordered_set<string> preferences = management.readPreferences();
+    flights.bfs(departure, preferences);
+
+    list<int> min_arrival;
+    int num_flights = INT32_MAX;
     while (!arrival.empty()){
-        list<int> paths;
-        cout << flights.getNodes()[arrival.front()].dist << " flight(s) are needed\n";
-        paths.push_front(arrival.front());
-        int path = flights.getNodes()[arrival.front()].path;
-        while (path != -1){
-            paths.push_front(path);
-            path = flights.getNodes()[path].path;
-        }
-        int num_flights = 1;
-        for (int i : paths){
-            cout << management.getNodeAirport().find(i)->second->getName() << endl;
-            if (num_flights < paths.size())
-                cout << "  ✈️ " << num_flights++ << endl;
-        }
-        cout << endl;
+        int dist = flights.getNodes()[arrival.front()].dist;
+        if (dist < num_flights && dist != -1)
+            num_flights = dist;
+        min_arrival.push_back(arrival.front());
         arrival.pop();
+    }
+
+    if (num_flights == INT32_MAX){
+        cout << "Not possible to reach destination with current preferences\n";
+        return false;
+    }
+    cout << num_flights << " flight(s) are needed\n";
+
+    for (auto it = min_arrival.begin(); it != min_arrival.end(); ){
+        if (flights.getNodes()[*it].dist > num_flights)
+            it = min_arrival.erase(it);
+        else it++;
+    }
+
+    for(int airport : min_arrival){
+        vector<int> paths = flights.getNodes()[airport].path;
+        for (int path : paths){
+            getPath({path, airport});
+        }
     }
 
     return false;
 }
 
+void MenuTravel::getPath(list<int> current_path){
+    Graph &flights = management.getFlights();
+    vector<int> path = flights.getNodes()[current_path.front()].path;
+    if (path.empty()){
+        int num_flights = 1;
+        for (int i : current_path){
+            const Airport* airport = management.getNodeAirport().find(i)->second;
+            cout << airport->getCode() << " " << airport->getName() << endl;
+            if (num_flights < current_path.size())
+                cout << "  ✈️ " << num_flights++ << endl;
+        }
+        cout << endl;
+        return;
+    }
+    for (int i : path){
+        list<int> next_path = current_path;
+        next_path.push_front(i);
+        getPath(next_path);
+    }
+}
+
 double MenuTravel::haversine(double lat1, double lon1, double lat2, double lon2)
 {
-    // distance between latitudes
-    // and longitudes
+    // distance between latitudes and longitudes
     double dLat = (lat2 - lat1) * M_PI / 180.0;
     double dLon = (lon2 - lon1) * M_PI / 180.0;
 
@@ -91,6 +120,7 @@ queue<int> MenuTravel::getAirports() {
                         queue<int> q({i.second});
                         return q;
                     }
+                return {};
             }
 
         } else if (option == "2"){

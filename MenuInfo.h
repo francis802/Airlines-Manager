@@ -19,6 +19,11 @@ public:
     void airportByCountry(unordered_map<Airport,int,AirportHash> airports);
     void airportByLocation(unordered_map<Airport,int,AirportHash> airports);
     void flightsAvailable();
+    void companiesAvailable();
+    void directAirportsAvailable();
+    void directDestiniesAvailable();
+
+
 
     static void printAirportInfo(Airport airport);
 };

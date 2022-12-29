@@ -1,3 +1,4 @@
+#include <set>
 #include "MenuInfo.h"
 
 MenuInfo::MenuInfo(const FlightManagement &management): Menu(management) {}
@@ -9,8 +10,9 @@ bool MenuInfo::start() {
         cout << "-> INFO AIRPORTS\n\n";
         cout << "1 - GENERAL SEARCH\n";
         cout << "2 - FLIGHTS AVAILABLE\n";
-        cout << "3 - AIRPORT DIRECT REACH\n";
-        cout << "4 - AIRPORT INDIRECT REACH\n";
+        cout << "3 - FLIGHT COMPANIES AVAILABLE\n";
+        cout << "4 - AIRPORT DIRECT REACH\n";
+        cout << "5 - AIRPORT INDIRECT REACH\n";
 
 
         cout << "\n type 'q' to quit, 'r' to return\n";
@@ -21,11 +23,12 @@ bool MenuInfo::start() {
             if (exit) return true;
         }
         if (option == "2") flightsAvailable();
-        if (option == "3"){
+        if (option == "3") companiesAvailable();
+        if (option == "4"){
             exit = directSearch();
             if (exit) return true;
         }
-        if (option == "4"){
+        if (option == "5"){
 
         }
         if (option == "r") return false;
@@ -58,7 +61,6 @@ bool MenuInfo::generalSearchMenu(){
 }
 
 bool MenuInfo::directSearch(){
-    auto airports = management.getAirportNode();
     string option;
     while (true) {
         cout << "-> DIRECT CONNECTIONS\n\n";
@@ -75,21 +77,6 @@ bool MenuInfo::directSearch(){
         if (option == "r") return false;
         if (option == "q") return true;
     }
-}
-
-void MenuInfo::flightsAvailable() {
-    auto flights = management.getFlights();
-    int counter = 0;
-    string code;
-    cout << "Airport Code: ";
-    getline(cin, code);
-    auto node_airport = management.getAirportNode().find(Airport(code));
-    int graph_pos = node_airport->second;
-    auto nodes = flights.getNodes();
-    auto node = nodes[graph_pos];
-    for (auto it = node.adj.begin(); it != node.adj.end();it++) counter++;
-    if(counter == 0) cout << "No airport with code\n";
-    else cout << "Airport " << code << " has " << counter << " flights\n";
 }
 
 void MenuInfo::printAirportInfo(Airport airport){
@@ -210,4 +197,40 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
         }
     }
     if(!found) cout << "No airport in Location Range\n";
+}
+
+void MenuInfo::flightsAvailable() {
+    auto flights = management.getFlights();
+    int counter = 0;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto node_airport = management.getAirportNode().find(Airport(code));
+    int graph_pos = node_airport->second;
+    auto nodes = flights.getNodes();
+    auto node = nodes[graph_pos];
+    for (auto it = node.adj.begin(); it != node.adj.end();it++) counter++;
+    if(counter == 0) cout << "No airport with such code\n";
+    else cout << "Airport " << code << " has " << counter << " flights\n";
+}
+
+void MenuInfo::companiesAvailable() {
+    auto flights = management.getFlights();
+    int counter = 0;
+    unordered_set<string> companies;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto node_airport = management.getAirportNode().find(Airport(code));
+    int graph_pos = node_airport->second;
+    auto nodes = flights.getNodes();
+    auto node = nodes[graph_pos];
+    for (auto & it : node.adj){
+        if (companies.find(it.airline->getCode()) == companies.end()){
+            companies.insert(it.airline->getCode());
+            counter++;
+        }
+    }
+    if(counter == 0) cout << "No airport with such code\n";
+    else cout << "Airport " << code << " has " << counter << " companies\n";
 }

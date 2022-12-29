@@ -26,12 +26,18 @@ void Graph::bfs(queue<int> q, unordered_set<string> preferences) {
         }
         for (auto e : nodes[u].adj) {
             int w = e.dest;
-            if (((nodes[w].path.empty() && !nodes[w].visited) || (!nodes[w].path.empty() && nodes[nodes[w].path.front()].dist == nodes[u].dist+1))
+            if (((nodes[w].path.empty() && !nodes[w].visited)
+            || (!nodes[w].path.empty() && nodes[nodes[w].path.front()].dist == nodes[u].dist))
             && (preferences.empty() || preferences.find(e.airline->getCode()) != preferences.end())) {
                 if (nodes[w].path.empty())
                     q.push(w);
                 nodes[w].visited = true;
-                nodes[w].path.push_back(u);
+                bool repeat = false;
+                for (int i : nodes[w].path)
+                    if (i == u)
+                        repeat = true;
+                if (!repeat)
+                    nodes[w].path.push_back(u);
             }
         }
     }

@@ -3,10 +3,41 @@
 MenuInfo::MenuInfo(const FlightManagement &management): Menu(management) {}
 
 bool MenuInfo::start() {
-    auto airports = management.getAirportNode();
+    bool exit;
     string option;
     while (true) {
         cout << "-> INFO AIRPORTS\n\n";
+        cout << "1 - GENERAL SEARCH\n";
+        cout << "2 - FLIGHTS AVAILABLE\n";
+        cout << "3 - AIRPORT DIRECT REACH\n";
+        cout << "4 - AIRPORT INDIRECT REACH\n";
+
+
+        cout << "\n type 'q' to quit, 'r' to return\n";
+        cout << "==================================================\n";
+        getline(cin, option);
+        if (option == "1") {
+            exit = generalSearchMenu();
+            if (exit) return true;
+        }
+        if (option == "2") flightsAvailable();
+        if (option == "3"){
+            exit = directSearch();
+            if (exit) return true;
+        }
+        if (option == "4"){
+
+        }
+        if (option == "r") return false;
+        if (option == "q") return true;
+    }
+}
+
+bool MenuInfo::generalSearchMenu(){
+    auto airports = management.getAirportNode();
+    string option;
+    while (true) {
+        cout << "-> SEARCH AIRPORTS BY\n\n";
         cout << "1 - CODE\n";
         cout << "2 - NAME\n";
         cout << "3 - CITY\n";
@@ -24,6 +55,36 @@ bool MenuInfo::start() {
         if (option == "r") return false;
         if (option == "q") return true;
     }
+}
+
+bool MenuInfo::directSearch(){
+    auto airports = management.getAirportNode();
+    string option;
+    while (true) {
+        cout << "-> DIRECT CONNECTIONS\n\n";
+        cout << "1 - AIRPORTS AVAILABLE\n";
+        cout << "2 - DESTINIES AVAILABLE\n";
+        cout << "3 - COUNTRIES AVAILABLE\n";
+
+        cout << "\n type 'q' to quit, 'r' to return\n";
+        cout << "==================================================\n";
+        getline(cin, option);
+        if (option == "1") { }
+        if (option == "2") { }
+        if (option == "3") { }
+        if (option == "r") return false;
+        if (option == "q") return true;
+    }
+}
+
+void MenuInfo::flightsAvailable() {
+    auto flights = management.getFlights();
+    bool found = false;
+    int counter = 0;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    if(!found) cout << "No airport with code\n";
 }
 
 void MenuInfo::printAirportInfo(Airport airport){

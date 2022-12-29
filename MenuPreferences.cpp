@@ -4,12 +4,13 @@
 MenuPreferences::MenuPreferences(const FlightManagement &management): Menu(management) {}
 
 bool MenuPreferences::start() {
-    unordered_set<string> preferences = readPreferences();
+    unordered_set<string> preferences = management.readPreferences();
     while (true) {
         cout << "-> PREFERENCES\n\n";
         cout << "\t1 - View Whitelist\n";
         cout << "\t2 - Add to Whitelist\n";
         cout << "\t3 - Remove from Whitelist\n";
+        cout << "\t4 - Reset Whitelist\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -17,8 +18,14 @@ bool MenuPreferences::start() {
         string option;
         getline(cin, option);
         if (option == "1"){
-            for (string s : preferences)
-                cout << s << endl;
+            if (preferences.empty()) {
+                cout << "There are currently no preferences set.\n";
+                cout << "You will be able to fly with any airline.\n\n";
+            }
+            else {
+                for (string s: preferences)
+                    cout << s << endl;
+            }
         } else if (option == "2"){
             cout << "leave blank to stop\n";
             string airline;
@@ -42,29 +49,15 @@ bool MenuPreferences::start() {
             auto verify = preferences.find(airline);
             if (verify != preferences.end())
                 preferences.erase(verify);
+        } else if (option == "4"){
+            preferences.clear();
         } else if (option == "q") {
-            savePreferences(preferences);
+            management.savePreferences(preferences);
             return true;
         }else if (option == "r") {
-            savePreferences(preferences);
+            management.savePreferences(preferences);
             return false;
         }
         else cout << "invalid input\n\n";
     }
-}
-
-void MenuPreferences::savePreferences(unordered_set<string> preferences) {
-    ofstream out("../preferences");
-    for (string s : preferences)
-        out << s << endl;
-}
-
-unordered_set<string> MenuPreferences::readPreferences() {
-    ifstream in("../preferences");
-    string line;
-    unordered_set<string> preferences;
-    while (getline(in, line)){
-        preferences.insert(line);
-    }
-    return preferences;
 }

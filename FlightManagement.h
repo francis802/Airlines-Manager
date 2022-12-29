@@ -18,6 +18,9 @@ public:
     void getDataAirline(string filename);
     void getDataFlights(string filename);
 
+    unordered_set<string> readPreferences();
+    void savePreferences(unordered_set<string> preferences);
+
     const unordered_map<Airport, int, AirportHash> &getAirportNode() const;
     const unordered_map<int, const Airport *> &getNodeAirport() const;
     const unordered_set<Airline, AirlineHash> &getAirlines() const;

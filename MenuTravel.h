@@ -12,9 +12,12 @@ public:
 
     bool start();
 
+    void getPath(list<int> current_path);
+
     static double haversine(double lat1, double lon1, double lat2, double lon2);
 
     queue<int> getAirports();
+
 };
 
 

@@ -79,12 +79,17 @@ bool MenuInfo::directSearch(){
 
 void MenuInfo::flightsAvailable() {
     auto flights = management.getFlights();
-    bool found = false;
     int counter = 0;
     string code;
     cout << "Airport Code: ";
     getline(cin, code);
-    if(!found) cout << "No airport with code\n";
+    auto node_airport = management.getAirportNode().find(Airport(code));
+    int graph_pos = node_airport->second;
+    auto nodes = flights.getNodes();
+    auto node = nodes[graph_pos];
+    for (auto it = node.adj.begin(); it != node.adj.end();it++) counter++;
+    if(counter == 0) cout << "No airport with code\n";
+    else cout << "Airport " << code << " has " << counter << " flights\n";
 }
 
 void MenuInfo::printAirportInfo(Airport airport){

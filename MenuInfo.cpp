@@ -385,9 +385,57 @@ void MenuInfo::indirectAirportsAvailable(int maxDist) {
 }
 
 void MenuInfo::indirectDestiniesAvailable(int maxDist) {
-
+    auto flights = management.getFlights();
+    int counter = 0;
+    unordered_set<string> airports;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto airport_node = management.getAirportNode().find(Airport(code));
+    if (airport_node == management.getAirportNode().end()){
+        cout << "No airport with such code\n";
+        return;
+    }
+    int graph_pos = airport_node->second;
+    queue<int> initial; initial.push(graph_pos);
+    flights.bfs(initial, airports);
+    auto nodes = flights.getNodes();
+    for (int i=1; i<=nodes.size(); i++){
+        if (nodes[i].dist<=maxDist){
+            auto airport = management.getNodeAirport().find(i);
+            if (airports.find(airport->second->getCity()) == airports.end()){
+                airports.insert(airport->second->getCity());
+                counter++;
+            }
+        }
+    }
+    cout << "Airport " << code << " can reach " << counter << " destinies with " << maxDist << " flights\n";
 }
 
 void MenuInfo::indirectCountriesAvailable(int maxDist) {
-
+    auto flights = management.getFlights();
+    int counter = 0;
+    unordered_set<string> airports;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto airport_node = management.getAirportNode().find(Airport(code));
+    if (airport_node == management.getAirportNode().end()){
+        cout << "No airport with such code\n";
+        return;
+    }
+    int graph_pos = airport_node->second;
+    queue<int> initial; initial.push(graph_pos);
+    flights.bfs(initial, airports);
+    auto nodes = flights.getNodes();
+    for (int i=1; i<=nodes.size(); i++){
+        if (nodes[i].dist<=maxDist){
+            auto airport = management.getNodeAirport().find(i);
+            if (airports.find(airport->second->getCountry()) == airports.end()){
+                airports.insert(airport->second->getCountry());
+                counter++;
+            }
+        }
+    }
+    cout << "Airport " << code << " can reach " << counter << " countries with " << maxDist << " flights\n";
 }

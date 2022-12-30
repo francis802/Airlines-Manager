@@ -71,9 +71,9 @@ bool MenuInfo::directSearch(){
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
-        if (option == "1") { }
-        if (option == "2") { }
-        if (option == "3") { }
+        if (option == "1") directAirportsAvailable();
+        if (option == "2") directDestiniesAvailable();
+        if (option == "3") directCountriesAvailable();
         if (option == "r") return false;
         if (option == "q") return true;
     }
@@ -233,4 +233,70 @@ void MenuInfo::companiesAvailable() {
     }
     if(counter == 0) cout << "No airport with such code\n";
     else cout << "Airport " << code << " has " << counter << " companies\n";
+}
+
+void MenuInfo::directAirportsAvailable(){
+    auto flights = management.getFlights();
+    int counter = 0;
+    unordered_set<string> airports;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto airport_node = management.getAirportNode().find(Airport(code));
+    int graph_pos = airport_node->second;
+    auto nodes = flights.getNodes();
+    auto node = nodes[graph_pos];
+    for (auto & it : node.adj){
+        auto airport = management.getNodeAirport().find(it.dest);
+        if (airports.find(airport->second->getCode()) == airports.end()){
+            airports.insert(airport->second->getCode());
+            counter++;
+        }
+    }
+    if(counter == 0) cout << "No airport with such code\n";
+    else cout << "Airport " << code << " can directly reach " << counter << " airports\n";
+}
+
+void MenuInfo::directDestiniesAvailable(){
+    auto flights = management.getFlights();
+    int counter = 0;
+    unordered_set<string> destinies;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto airport_node = management.getAirportNode().find(Airport(code));
+    int graph_pos = airport_node->second;
+    auto nodes = flights.getNodes();
+    auto node = nodes[graph_pos];
+    for (auto & it : node.adj){
+        auto airport = management.getNodeAirport().find(it.dest);
+        if (destinies.find(airport->second->getCity()) == destinies.end()){
+            destinies.insert(airport->second->getCity());
+            counter++;
+        }
+    }
+    if(counter == 0) cout << "No airport with such code\n";
+    else cout << "Airport " << code << " can directly reach " << counter << " destinies\n";
+}
+
+void MenuInfo::directCountriesAvailable(){
+    auto flights = management.getFlights();
+    int counter = 0;
+    unordered_set<string> countries;
+    string code;
+    cout << "Airport Code: ";
+    getline(cin, code);
+    auto airport_node = management.getAirportNode().find(Airport(code));
+    int graph_pos = airport_node->second;
+    auto nodes = flights.getNodes();
+    auto node = nodes[graph_pos];
+    for (auto & it : node.adj){
+        auto airport = management.getNodeAirport().find(it.dest);
+        if (countries.find(airport->second->getCountry()) == countries.end()){
+            countries.insert(airport->second->getCountry());
+            counter++;
+        }
+    }
+    if(counter == 0) cout << "No airport with such code\n";
+    else cout << "Airport " << code << " can directly reach " << counter << " countries\n";
 }

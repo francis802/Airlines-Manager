@@ -22,6 +22,7 @@ public:
     void companiesAvailable();
     void directAirportsAvailable();
     void directDestiniesAvailable();
+    void directCountriesAvailable();
 
 
 

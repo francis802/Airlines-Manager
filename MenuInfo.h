@@ -23,6 +23,9 @@ public:
     void directAirportsAvailable();
     void directDestiniesAvailable();
     void directCountriesAvailable();
+    void indirectAirportsAvailable();
+    void indirectDestiniesAvailable();
+    void indirectCountriesAvailable();
 
 
 

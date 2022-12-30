@@ -85,7 +85,6 @@ bool MenuInfo::directSearch(){
 
 bool MenuInfo::indirectSearch(){
     string option, stopovers;
-    bool inputing;
     int maxDist;
     while (true) {
         bool inputing = true;
@@ -97,6 +96,7 @@ bool MenuInfo::indirectSearch(){
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
+        if (option == "q") inputing = false;
         while (inputing){
             try{
                 cout << "Max Flights:";

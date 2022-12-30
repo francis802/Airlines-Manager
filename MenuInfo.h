@@ -23,9 +23,9 @@ public:
     void directAirportsAvailable();
     void directDestiniesAvailable();
     void directCountriesAvailable();
-    void indirectAirportsAvailable();
-    void indirectDestiniesAvailable();
-    void indirectCountriesAvailable();
+    void indirectAirportsAvailable(int maxDist);
+    void indirectDestiniesAvailable(int maxDist);
+    void indirectCountriesAvailable(int maxDist);
 
 
 

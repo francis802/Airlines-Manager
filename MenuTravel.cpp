@@ -64,11 +64,18 @@ void MenuTravel::getPath(list<int> current_path){
     vector<int> path = flights.getNodes()[current_path.front()].path;
     if (path.empty()){
         int num_flights = 1;
-        for (int i : current_path){
-            const Airport* airport = management.getNodeAirport().find(i)->second;
+        unordered_set<string> preferences = management.readPreferences();
+        for (auto it = current_path.begin(); it != current_path.end(); it++){
+            const Airport* airport = management.getNodeAirport().find(*it)->second;
             cout << airport->getCode() << " " << airport->getName() << endl;
-            if (num_flights < current_path.size())
-                cout << "  ✈️ " << num_flights++ << endl;
+            if (num_flights < current_path.size()) {
+                cout << " " << num_flights++ << " ✈️ ";
+                auto dep = it;
+                auto arr = it;
+                arr++;
+                getAirlines(dep, arr, preferences);
+                cout << endl;
+            }
         }
         cout << endl;
         return;
@@ -79,6 +86,15 @@ void MenuTravel::getPath(list<int> current_path){
         getPath(next_path);
     }
 }
+
+void MenuTravel::getAirlines(list<int>::iterator dep, list<int>::iterator arr, unordered_set<string> preferences) {
+    auto nodes = management.getFlights().getNodes();
+    for (auto e : nodes[*dep].adj){
+        if (e.dest == *arr && (preferences.empty() || preferences.find(e.airline->getCode()) != preferences.end()))
+            cout << e.airline->getCode() << " ";
+    }
+}
+
 
 double MenuTravel::haversine(double lat1, double lon1, double lat2, double lon2)
 {

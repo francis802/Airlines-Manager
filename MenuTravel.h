@@ -17,7 +17,7 @@ public:
     static double haversine(double lat1, double lon1, double lat2, double lon2);
 
     queue<int> getAirports();
-
+    void getAirlines(list<int>::iterator dep, list<int>::iterator arr, unordered_set<string> preferences);
 };
 
 

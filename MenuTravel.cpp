@@ -152,16 +152,10 @@ queue<int> MenuTravel::getAirports() {
             else return {};
         } else if (option == "3"){
             string latitude, longitude, distance;
-            cout << "Latitude: ";
-            getline(cin, latitude);
-            cout << "Longitude: ";
-            getline(cin, longitude);
-            cout << "Max Distance: ";
-            getline(cin, distance);
-
-            double lat = stod(latitude);
-            double lon = stod(longitude);
-            double dist = stod(distance);
+            double lat, lon, dist;
+            lat = getNumbers("Latitude: ");
+            lon = getNumbers("Longitude: ");
+            dist = getNumbers("Max Distance: ");
 
             queue<int> airports;
 
@@ -172,4 +166,22 @@ queue<int> MenuTravel::getAirports() {
             return airports;
         } else cout << "invalid input\n\n";
     }
+}
+
+double MenuTravel::getNumbers(string output){
+    bool fail = true;
+    string num;
+    double converted;
+    while (fail){
+        cout << output;
+        getline(cin, num);
+        fail = false;
+        try{
+            converted = stod(num);
+        } catch (invalid_argument){
+            fail = true;
+            cout << "invalid input\n";
+        }
+    }
+    return converted;
 }

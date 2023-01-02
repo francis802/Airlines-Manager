@@ -18,6 +18,7 @@ public:
 
     queue<int> getAirports();
     void getAirlines(list<int>::iterator dep, list<int>::iterator arr, unordered_set<string> preferences);
+    double getNumbers(string output);
 };
 
 

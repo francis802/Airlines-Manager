@@ -13,18 +13,18 @@ public:
     bool directSearch();
     bool indirectSearch();
 
-    void airportByCode(unordered_map<Airport,int,AirportHash> airports);
-    void airportByName(unordered_map<Airport,int,AirportHash> airports);
-    void airportByCity(unordered_map<Airport,int,AirportHash> airports);
-    void airportByCountry(unordered_map<Airport,int,AirportHash> airports);
+    void airportByCode();
+    void airportByName();
+    void airportByCity();
+    void airportByCountry();
     void airportByLocation(unordered_map<Airport,int,AirportHash> airports);
     void flightsAvailable();
-    void companiesAvailable();
+    void airlinesAvailable();
     void directAirportsAvailable();
-    void directDestiniesAvailable();
+    void directDestinationsAvailable();
     void directCountriesAvailable();
     void indirectAirportsAvailable(int maxDist);
-    void indirectDestiniesAvailable(int maxDist);
+    void indirectDestinationsAvailable(int maxDist);
     void indirectCountriesAvailable(int maxDist);
 
 

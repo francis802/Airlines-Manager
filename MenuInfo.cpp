@@ -4,38 +4,34 @@
 MenuInfo::MenuInfo(const FlightManagement &management): Menu(management) {}
 
 bool MenuInfo::start() {
-    bool exit;
+    bool exit = false;
     string option;
-    while (true) {
+    while (!exit) {
         cout << "-> INFO AIRPORTS\n\n";
         cout << "1 - GENERAL SEARCH\n";
         cout << "2 - FLIGHTS AVAILABLE\n";
-        cout << "3 - FLIGHT COMPANIES AVAILABLE\n";
+        cout << "3 - AIRLINES AVAILABLE\n";
         cout << "4 - AIRPORT DIRECT REACH\n";
         cout << "5 - AIRPORT INDIRECT REACH\n";
-
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
-        if (option == "1") {
+        if (option == "1")
             exit = generalSearchMenu();
-            if (exit) return true;
-        }
-        else if (option == "2") flightsAvailable();
-        else if (option == "3") companiesAvailable();
-        else if (option == "4"){
+        else if (option == "2")
+            flightsAvailable();
+        else if (option == "3")
+            airlinesAvailable();
+        else if (option == "4")
             exit = directSearch();
-            if (exit) return true;
-        }
-        else if (option == "5"){
+        else if (option == "5")
             exit = indirectSearch();
-            if (exit) return true;
-        }
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
     }
+    return true;
 }
 
 bool MenuInfo::generalSearchMenu(){
@@ -52,10 +48,10 @@ bool MenuInfo::generalSearchMenu(){
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
-        if (option == "1") airportByCode(airports);
-        else if (option == "2") airportByName(airports);
-        else if (option == "3") airportByCity(airports);
-        else if (option == "4") airportByCountry(airports);
+        if (option == "1") airportByCode();
+        else if (option == "2") airportByName();
+        else if (option == "3") airportByCity();
+        else if (option == "4") airportByCountry();
         else if (option == "5") airportByLocation(airports);
         else if (option == "r") return false;
         else if (option == "q") return true;
@@ -68,14 +64,14 @@ bool MenuInfo::directSearch(){
     while (true) {
         cout << "-> DIRECT CONNECTIONS\n\n";
         cout << "1 - AIRPORTS AVAILABLE\n";
-        cout << "2 - DESTINIES AVAILABLE\n";
+        cout << "2 - DESTINATIONS AVAILABLE\n";
         cout << "3 - COUNTRIES AVAILABLE\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
         if (option == "1") directAirportsAvailable();
-        else if (option == "2") directDestiniesAvailable();
+        else if (option == "2") directDestinationsAvailable();
         else if (option == "3") directCountriesAvailable();
         else if (option == "r") return false;
         else if (option == "q") return true;
@@ -90,90 +86,92 @@ bool MenuInfo::indirectSearch(){
         bool inputing = true;
         cout << "-> INDIRECT CONNECTIONS\n\n";
         cout << "1 - AIRPORTS AVAILABLE\n";
-        cout << "2 - DESTINIES AVAILABLE\n";
+        cout << "2 - DESTINATIONS AVAILABLE\n";
         cout << "3 - COUNTRIES AVAILABLE\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
-        if (option == "q" || option == "r") inputing = false;
-        while (inputing){
-            try{
+        if (option == "r") return false;
+        else if (option == "q") return true;
+        else if (option == "1" || option == "2" || option == "3"){
+            while (inputing){
                 cout << "Max Flights:";
                 getline(cin, stopovers);
-                maxDist = stoi(stopovers);
-                if (maxDist>0) inputing = false;
-                else cout << "Invalid Input\n\n";
+                inputing = false;
+                try{
+                    maxDist = stoi(stopovers);
+                }
+                catch (invalid_argument){
+                    cout << "invalid input\n\n";
+                    inputing = true;
+                }
+                if (maxDist <= 0){
+                    inputing = true;
+                    cout << "invalid input\n";
+                }
             }
-            catch (invalid_argument){
-                cout << "Invalid Input\n\n";
-                continue;
-            }
+            if (option == "1") indirectAirportsAvailable(maxDist);
+            else if (option == "2") indirectDestinationsAvailable(maxDist);
+            else if (option == "3") indirectCountriesAvailable(maxDist);
         }
-        if (option == "1") indirectAirportsAvailable(maxDist);
-        else if (option == "2") indirectDestiniesAvailable(maxDist);
-        else if (option == "3") indirectCountriesAvailable(maxDist);
-        else if (option == "r") return false;
-        else if (option == "q") return true;
         else cout << "Invalid input\n";
     }
 }
 
 void MenuInfo::printAirportInfo(Airport airport){
     cout << "\nCode: " << airport.getCode() << "\n"
-    << "Name: " << airport.getName() << "\n"
-    << "City: " << airport.getCity() << "\n"
-    << "Country: " << airport.getCountry() << "\n"
-    << "Latitude: " << airport.getLatitude() << "\n"
-    << "Longitude: " << airport.getLongitude() << "\n"
-    << "\n";
+         << "Name: " << airport.getName() << "\n"
+         << "City: " << airport.getCity() << "\n"
+         << "Country: " << airport.getCountry() << "\n"
+         << "Latitude: " << airport.getLatitude() << "\n"
+         << "Longitude: " << airport.getLongitude() << "\n"
+         << "\n";
 }
 
-void MenuInfo::airportByCode(unordered_map<Airport, int, AirportHash> airports) {
+void MenuInfo::airportByCode() {
     string code;
     cout << "Airport Code: ";
     getline(cin, code);
     Airport airport = Airport(code);
-    auto verify = airports.find(airport);
-    if (verify != airports.end())
+    auto verify = management.getAirportNode().find(airport);
+    if (verify != management.getAirportNode().end())
         printAirportInfo(verify->first);
     else cout << "No airport with such code\n";
 }
 
-void MenuInfo::airportByName(unordered_map<Airport, int, AirportHash> airports) {
+void MenuInfo::airportByName() {
     bool found = false;
     string name;
     cout << "Airport Name: ";
     getline(cin, name);
-    for (const auto& airport : airports){
+    for (const auto& airport : management.getAirportNode()){
         if (airport.first.getName() == name){
             printAirportInfo(airport.first);
             found = true;
+            break;
         }
     }
     if(!found) cout << "No airport with such name\n";
 }
 
-void MenuInfo::airportByCity(unordered_map<Airport, int, AirportHash> airports) {
-    bool found = false;
+void MenuInfo::airportByCity() {
     string city;
     cout << "City: ";
     getline(cin, city);
-    for (const auto& airport : airports){
-        if (airport.first.getCity() == city){
-            printAirportInfo(airport.first);
-            found = true;
-        }
-    }
-    if(!found) cout << "City doesn't have airports\n";
+    auto verify = management.getCityAirports().find(city);
+    if (verify != management.getCityAirports().end())
+        for (const Airport* a : verify->second)
+            printAirportInfo(*a);
+    else cout << "City doesn't have airports\n";
 }
 
-void MenuInfo::airportByCountry(unordered_map<Airport, int, AirportHash> airports) {
+void MenuInfo::airportByCountry() {
     bool found = false;
     string country;
     cout << "Country: ";
     getline(cin, country);
-    for (const auto& airport : airports){
+    for (const auto& airport : management.getAirportNode()){
         if (airport.first.getCountry() == country){
             printAirportInfo(airport.first);
             found = true;
@@ -231,7 +229,7 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
     }
     for (const auto& airport : airports){
         if (minLat <= airport.first.getLatitude() && airport.first.getLatitude() <= maxLat
-         && minLon <= airport.first.getLongitude() && airport.first.getLongitude() <= maxLon){
+            && minLon <= airport.first.getLongitude() && airport.first.getLongitude() <= maxLon){
             printAirportInfo(airport.first);
             found = true;
         }
@@ -257,10 +255,10 @@ void MenuInfo::flightsAvailable() {
     cout << "Airport " << code << " has " << counter << " flights\n";
 }
 
-void MenuInfo::companiesAvailable() {
+void MenuInfo::airlinesAvailable() {
     auto flights = management.getFlights();
     int counter = 0;
-    unordered_set<string> companies;
+    unordered_set<string> airlines;
     string code;
     cout << "Airport Code: ";
     getline(cin, code);
@@ -272,13 +270,10 @@ void MenuInfo::companiesAvailable() {
     int graph_pos = airport_node->second;
     auto nodes = flights.getNodes();
     auto node = nodes[graph_pos];
-    for (auto & it : node.adj){
-        if (companies.find(it.airline->getCode()) == companies.end()){
-            companies.insert(it.airline->getCode());
+    for (auto & it : node.adj)
+        if (airlines.insert(it.airline->getCode()).second)
             counter++;
-        }
-    }
-    cout << "Airport " << code << " has " << counter << " companies\n";
+    cout << "Airport " << code << " has " << counter << " airlines\n";
 }
 
 void MenuInfo::directAirportsAvailable(){
@@ -298,18 +293,16 @@ void MenuInfo::directAirportsAvailable(){
     auto node = nodes[graph_pos];
     for (auto & it : node.adj){
         auto airport = management.getNodeAirport().find(it.dest);
-        if (airports.find(airport->second->getCode()) == airports.end()){
-            airports.insert(airport->second->getCode());
+        if (airports.insert(airport->second->getCode()).second)
             counter++;
-        }
     }
     cout << "Airport " << code << " can directly reach " << counter << " airports\n";
 }
 
-void MenuInfo::directDestiniesAvailable(){
+void MenuInfo::directDestinationsAvailable(){
     auto flights = management.getFlights();
     int counter = 0;
-    unordered_set<string> destinies;
+    unordered_set<string> destinations;
     string code;
     cout << "Airport Code: ";
     getline(cin, code);
@@ -323,12 +316,12 @@ void MenuInfo::directDestiniesAvailable(){
     auto node = nodes[graph_pos];
     for (auto & it : node.adj){
         auto airport = management.getNodeAirport().find(it.dest);
-        if (destinies.find(airport->second->getCity()) == destinies.end()){
-            destinies.insert(airport->second->getCity());
+        if (destinations.find(airport->second->getCity()) == destinations.end()){
+            destinations.insert(airport->second->getCity());
             counter++;
         }
     }
-    cout << "Airport " << code << " can directly reach " << counter << " destinies\n";
+    cout << "Airport " << code << " can directly reach " << counter << " destinations\n";
 }
 
 void MenuInfo::directCountriesAvailable(){
@@ -348,10 +341,8 @@ void MenuInfo::directCountriesAvailable(){
     auto node = nodes[graph_pos];
     for (auto & it : node.adj){
         auto airport = management.getNodeAirport().find(it.dest);
-        if (countries.find(airport->second->getCountry()) == countries.end()){
-            countries.insert(airport->second->getCountry());
+        if (countries.insert(airport->second->getCountry()).second)
             counter++;
-        }
     }
     cout << "Airport " << code << " can directly reach " << counter << " countries\n";
 }
@@ -369,22 +360,19 @@ void MenuInfo::indirectAirportsAvailable(int maxDist) {
         return;
     }
     int graph_pos = airport_node->second;
-    queue<int> initial; initial.push(graph_pos);
-    flights.bfs(initial, airports);
+    flights.bfs(queue<int>({graph_pos}), airports);
     auto nodes = flights.getNodes();
     for (int i=1; i<=nodes.size(); i++){
-        if (nodes[i].dist<=maxDist){
+        if (nodes[i].dist <= maxDist && nodes[i].dist > 0){
             auto airport = management.getNodeAirport().find(i);
-            if (airports.find(airport->second->getCode()) == airports.end()){
-                airports.insert(airport->second->getCode());
+            if (airports.insert(airport->second->getCode()).second)
                 counter++;
-            }
         }
     }
     cout << "Airport " << code << " can reach " << counter << " airports with " << maxDist << " flights\n";
 }
 
-void MenuInfo::indirectDestiniesAvailable(int maxDist) {
+void MenuInfo::indirectDestinationsAvailable(int maxDist) {
     auto flights = management.getFlights();
     int counter = 0;
     unordered_set<string> airports;
@@ -401,15 +389,13 @@ void MenuInfo::indirectDestiniesAvailable(int maxDist) {
     flights.bfs(initial, airports);
     auto nodes = flights.getNodes();
     for (int i=1; i<=nodes.size(); i++){
-        if (nodes[i].dist<=maxDist){
+        if (nodes[i].dist <= maxDist && nodes[i].dist > 0){
             auto airport = management.getNodeAirport().find(i);
-            if (airports.find(airport->second->getCity()) == airports.end()){
-                airports.insert(airport->second->getCity());
+            if (airports.insert(airport->second->getCity()).second)
                 counter++;
-            }
         }
     }
-    cout << "Airport " << code << " can reach " << counter << " destinies with " << maxDist << " flights\n";
+    cout << "Airport " << code << " can reach " << counter << " destinations with " << maxDist << " flights\n";
 }
 
 void MenuInfo::indirectCountriesAvailable(int maxDist) {
@@ -429,12 +415,10 @@ void MenuInfo::indirectCountriesAvailable(int maxDist) {
     flights.bfs(initial, airports);
     auto nodes = flights.getNodes();
     for (int i=1; i<=nodes.size(); i++){
-        if (nodes[i].dist<=maxDist){
+        if (nodes[i].dist <= maxDist && nodes[i].dist > 0){
             auto airport = management.getNodeAirport().find(i);
-            if (airports.find(airport->second->getCountry()) == airports.end()){
-                airports.insert(airport->second->getCountry());
+            if (airports.insert(airport->second->getCountry()).second)
                 counter++;
-            }
         }
     }
     cout << "Airport " << code << " can reach " << counter << " countries with " << maxDist << " flights\n";

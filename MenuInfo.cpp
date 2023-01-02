@@ -96,7 +96,7 @@ bool MenuInfo::indirectSearch(){
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
-        if (option == "q") inputing = false;
+        if (option == "q" || option == "r") inputing = false;
         while (inputing){
             try{
                 cout << "Max Flights:";

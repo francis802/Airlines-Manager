@@ -2,6 +2,7 @@
 #include "MenuTravel.h"
 #include "MenuInfo.h"
 #include "MenuPreferences.h"
+#include "MenuGlobalStats.h"
 
 Menu::Menu(const FlightManagement &management) : management(management) {}
 
@@ -13,6 +14,7 @@ void Menu::start() {
         cout << "1 - TRAVEL\n";
         cout << "2 - INFO AIRPORTS\n";
         cout << "3 - PREFERENCES\n";
+        cout << "4 - GLOBAL STATS\n";
 
         cout << "\n type 'q' to quit\n";
         cout << "==================================================\n";
@@ -29,6 +31,10 @@ void Menu::start() {
         else if (option == "3"){
             MenuPreferences preferences = MenuPreferences(management);
             exit = preferences.start();
+        }
+        else if (option == "4"){
+            MenuGlobalStats globalStats = MenuGlobalStats(management);
+            exit = globalStats.start();
         }
         else if (option == "q") break;
         else cout << "invalid input\n\n";

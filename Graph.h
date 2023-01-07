@@ -5,6 +5,7 @@
 #include <list>
 #include <vector>
 #include <queue>
+#include <stack>
 #include "Airline.h"
 #include "Airport.h"
 
@@ -21,6 +22,12 @@ private:
 
         int dist;
         vector<int> path;
+
+
+        int num;
+        int low;
+        bool inStack;
+        bool isAP;
     };
 
     int n;
@@ -33,6 +40,8 @@ public:
     void addFlight(int src, int dest, const Airline* airline);
 
     void bfs(queue<int> q, unordered_set<string> preferences);
+    void dfs_art(int v, stack<int> *S, int index);
+    vector<int> articulationPoints();
 
     vector<Node> getNodes();
 };

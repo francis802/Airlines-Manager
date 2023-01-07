@@ -11,13 +11,14 @@ public:
 
     bool start();
     bool globalStatsMenu();
+    bool continentalStatsMenu();
     bool countryStatsMenu();
 
     void globalArticulationPoints();
+    void continentalArticulationPoints(string continent);
+    void countryArticulationPoints(string country);
 
-    void countryArticulationPoints();
-
-    string get_continent(const string& country);
+    unordered_set<string> getCountriesOf(const string& continent);
 };
 
 #endif //NETWORKMANAGER_MENUNETWORKSTATS_H

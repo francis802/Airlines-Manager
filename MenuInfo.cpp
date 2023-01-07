@@ -81,8 +81,9 @@ bool MenuInfo::directSearch(){
 bool MenuInfo::indirectSearch(){
     string option, stopovers;
     int maxDist;
+    bool inputing;
     while (true) {
-        bool inputing = true;
+        inputing = true;
         cout << "-> INDIRECT CONNECTIONS\n\n";
         cout << "1 - AIRPORTS AVAILABLE\n";
         cout << "2 - DESTINATIONS AVAILABLE\n";
@@ -385,7 +386,8 @@ void MenuInfo::indirectAirportsAvailable(int maxDist) {
     int graph_pos = airport_node->second;
     flights.bfs(queue<int>({graph_pos}), airports);
     auto nodes = flights.getNodes();
-    for (int i=1; i<=nodes.size(); i++){
+    int n = nodes.size()-1;
+    for (int i=1; i<=n; i++){
         if (nodes[i].dist <= maxDist && nodes[i].dist > 0){
             auto airport = management.getNodeAirport().find(i);
             if (airports.insert(airport->second->getCode()).second)
@@ -411,7 +413,8 @@ void MenuInfo::indirectDestinationsAvailable(int maxDist) {
     queue<int> initial; initial.push(graph_pos);
     flights.bfs(initial, airports);
     auto nodes = flights.getNodes();
-    for (int i=1; i<=nodes.size(); i++){
+    int n = nodes.size()-1;
+    for (int i=1; i<=n; i++){
         if (nodes[i].dist <= maxDist && nodes[i].dist > 0){
             auto airport = management.getNodeAirport().find(i);
             if (airports.insert(airport->second->getCity()).second)
@@ -437,7 +440,8 @@ void MenuInfo::indirectCountriesAvailable(int maxDist) {
     queue<int> initial; initial.push(graph_pos);
     flights.bfs(initial, airports);
     auto nodes = flights.getNodes();
-    for (int i=1; i<=nodes.size(); i++){
+    int n = nodes.size()-1;
+    for (int i=1; i<=n; i++){
         if (nodes[i].dist <= maxDist && nodes[i].dist > 0){
             auto airport = management.getNodeAirport().find(i);
             if (airports.insert(airport->second->getCountry()).second)

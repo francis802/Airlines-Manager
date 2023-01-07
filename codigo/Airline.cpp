@@ -9,14 +9,6 @@ const string &Airline::getCode() const {
     return code;
 }
 
-const string &Airline::getName() const {
-    return name;
-}
-
-const string &Airline::getCallsign() const {
-    return callsign;
-}
-
 const string &Airline::getCountry() const {
     return country;
 }

@@ -34,7 +34,3 @@ double Airport::getLongitude() const {
 bool Airport::operator==(const Airport &rhs) const {
     return code == rhs.code;
 }
-
-void Airport::setName(const string &name) {
-    Airport::name = name;
-}

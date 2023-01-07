@@ -2,7 +2,7 @@
 #include "MenuTravel.h"
 #include "MenuInfo.h"
 #include "MenuPreferences.h"
-#include "MenuGlobalStats.h"
+#include "MenuNetworkStats.h"
 
 Menu::Menu(const FlightManagement &management) : management(management) {}
 
@@ -33,7 +33,7 @@ void Menu::start() {
             exit = preferences.start();
         }
         else if (option == "4"){
-            MenuGlobalStats globalStats = MenuGlobalStats(management);
+            MenuNetworkStats globalStats = MenuNetworkStats(management);
             exit = globalStats.start();
         }
         else if (option == "q") break;

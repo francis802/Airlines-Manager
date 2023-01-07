@@ -1,8 +1,8 @@
-#include "MenuGlobalStats.h"
+#include "MenuNetworkStats.h"
 
-MenuGlobalStats::MenuGlobalStats(const FlightManagement &management): Menu(management) {}
+MenuNetworkStats::MenuNetworkStats(const FlightManagement &management): Menu(management) {}
 
-bool MenuGlobalStats::start() {
+bool MenuNetworkStats::start() {
     bool exit = false;
     string option;
     while (!exit) {
@@ -21,11 +21,12 @@ bool MenuGlobalStats::start() {
     return true;
 }
 
-void MenuGlobalStats::articulationPoints() {
+void MenuNetworkStats::articulationPoints() {
     Graph graph = management.getFlights();
-    vector<int> aps = graph.articulationPoints();
-    cout << "Number of articulation points: " << aps.size() << "\n";
+    auto map = management.getNodeAirport();
+    vector<int> aps = graph.getGlobalArticulationPoints();
+    cout << "Number of global articulation points: " << aps.size() << "\n";
     for (int i : aps) {
-        cout << i << "\n";
+        cout << map[i]->getName() << "\n";
     }
 }

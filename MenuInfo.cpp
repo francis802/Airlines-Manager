@@ -35,7 +35,6 @@ bool MenuInfo::start() {
 }
 
 bool MenuInfo::generalSearchMenu(){
-    auto airports = management.getAirportNode();
     string option;
     while (true) {
         cout << "-> SEARCH AIRPORTS BY\n\n";
@@ -52,7 +51,7 @@ bool MenuInfo::generalSearchMenu(){
         else if (option == "2") airportByName();
         else if (option == "3") airportByCity();
         else if (option == "4") airportByCountry();
-        else if (option == "5") airportByLocation(airports);
+        else if (option == "5") airportByLocation();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -180,7 +179,7 @@ void MenuInfo::airportByCountry() {
     if(!found) cout << "Country doesn't have airports\n";
 }
 
-void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airports) {
+void MenuInfo::airportByLocation() {
     bool found = false;
     string stringInput;
     float minLat, maxLat, minLon, maxLon;
@@ -192,6 +191,10 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
         if (i == 0){
             try{
                 minLat = stof(stringInput);
+                if (minLat<-90 || minLat>90){
+                    cout << "Invalid Latitude Range: [-90.0,90.0]";
+                    continue;
+                }
             }
             catch (invalid_argument){
                 cout << "Invalid Input\n";
@@ -201,6 +204,14 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
         if (i == 1){
             try{
                 maxLat = stof(stringInput);
+                if (maxLat<-90 || maxLat>90){
+                    cout << "Invalid Latitude Range: [-90.0,90.0]";
+                    continue;
+                }
+                if (maxLat<minLat){
+                    cout << "Max Latitude can't be inferior to Min Latitude";
+                    continue;
+                }
             }
             catch (invalid_argument){
                 cout << "Invalid Input\n";
@@ -210,6 +221,10 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
         if (i == 2){
             try{
                 minLon = stof(stringInput);
+                if (minLon<-180 || minLon>180){
+                    cout << "Invalid Longitude Range: [-180.0,180.0]";
+                    continue;
+                }
             }
             catch (invalid_argument){
                 cout << "Invalid Input\n";
@@ -219,6 +234,14 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
         if (i == 3){
             try{
                 maxLon = stof(stringInput);
+                if (maxLon<-180 || maxLon>180){
+                    cout << "Invalid Longitude Range: [-180.0,180.0]";
+                    continue;
+                }
+                if (maxLon<minLon){
+                    cout << "Max Longitude can't be inferior to Min Longitude";
+                    continue;
+                }
             }
             catch (invalid_argument){
                 cout << "Invalid Input\n";
@@ -227,7 +250,7 @@ void MenuInfo::airportByLocation(unordered_map<Airport, int, AirportHash> airpor
         }
         i++;
     }
-    for (const auto& airport : airports){
+    for (const auto& airport : management.getAirportNode()){
         if (minLat <= airport.first.getLatitude() && airport.first.getLatitude() <= maxLat
             && minLon <= airport.first.getLongitude() && airport.first.getLongitude() <= maxLon){
             printAirportInfo(airport.first);

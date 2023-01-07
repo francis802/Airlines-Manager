@@ -17,7 +17,7 @@ public:
     void airportByName();
     void airportByCity();
     void airportByCountry();
-    void airportByLocation(unordered_map<Airport,int,AirportHash> airports);
+    void airportByLocation();
     void flightsAvailable();
     void airlinesAvailable();
     void directAirportsAvailable();

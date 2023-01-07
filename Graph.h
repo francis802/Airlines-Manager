@@ -41,7 +41,7 @@ public:
 
     void bfs(queue<int> q, unordered_set<string> preferences);
     void dfs_art(int v, stack<int> *S, int index);
-    vector<int> articulationPoints();
+    vector<int> getGlobalArticulationPoints();
 
     vector<Node> getNodes();
 };

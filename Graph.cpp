@@ -82,7 +82,7 @@ void Graph::dfs_art(int v, stack<int> *S, int index) {
     nodes[temp].inStack = false;
 }
 
-vector<int> Graph::articulationPoints() {
+vector<int> Graph::getGlobalArticulationPoints() {
     stack<int> S;
     vector<int> result;
     int index = 1;

@@ -1,8 +1,5 @@
 #include "MenuGlobalStats.h"
 
-#include <stack>
-#include <set>
-
 MenuGlobalStats::MenuGlobalStats(const FlightManagement &management): Menu(management) {}
 
 bool MenuGlobalStats::start() {

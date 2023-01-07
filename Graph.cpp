@@ -89,7 +89,32 @@ vector<int> Graph::getGlobalArticulationPoints() {
     for (int v = 1; v <= n; v++) {
         nodes[v].num = -1;
         nodes[v].low = -1;
-        nodes[v].low = false;
+        nodes[v].inStack = false;
+        nodes[v].isAP = false;
+    }
+    for (int v = 1; v <= n; v++) {
+        if (nodes[v].num == -1) {
+            dfs_art(v, &S, index);
+        }
+    }
+    for (int v = 1; v<=n; v++) {
+        if (nodes[v].isAP)
+            result.push_back(v);
+    }
+    return result;
+}
+
+vector<int> Graph::getCountryArticulationPoints(unordered_map<int, const Airport*> map, string country) {
+    stack<int> S;
+    vector<int> result;
+    int index = 1;
+    for (int v = 1; v <= n; v++) {
+        if (map[v]->getCountry() != country){
+            nodes[v].num = -2;
+        }
+        else nodes[v].num = -1;
+        nodes[v].low = -1;
+        nodes[v].inStack = false;
         nodes[v].isAP = false;
     }
     for (int v = 1; v <= n; v++) {

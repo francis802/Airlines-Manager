@@ -6,6 +6,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <unordered_map>
 #include "Airline.h"
 #include "Airport.h"
 
@@ -42,6 +43,7 @@ public:
     void bfs(queue<int> q, unordered_set<string> preferences);
     void dfs_art(int v, stack<int> *S, int index);
     vector<int> getGlobalArticulationPoints();
+    vector<int> getCountryArticulationPoints(unordered_map<int, const Airport*> map, string country);
 
     vector<Node> getNodes();
 };

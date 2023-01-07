@@ -12,6 +12,8 @@ public:
     bool countryStatsMenu();
 
     void globalArticulationPoints();
+
+    void countryArticulationPoints();
 };
 
 #endif //NETWORKMANAGER_MENUNETWORKSTATS_H

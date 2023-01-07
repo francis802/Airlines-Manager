@@ -14,7 +14,7 @@ void Menu::start() {
         cout << "1 - TRAVEL\n";
         cout << "2 - INFO AIRPORTS\n";
         cout << "3 - PREFERENCES\n";
-        cout << "4 - GLOBAL STATS\n";
+        cout << "4 - NETWORK STATS\n";
 
         cout << "\n type 'q' to quit\n";
         cout << "==================================================\n";
@@ -33,8 +33,8 @@ void Menu::start() {
             exit = preferences.start();
         }
         else if (option == "4"){
-            MenuNetworkStats globalStats = MenuNetworkStats(management);
-            exit = globalStats.start();
+            MenuNetworkStats networkStats = MenuNetworkStats(management);
+            exit = networkStats.start();
         }
         else if (option == "q") break;
         else cout << "invalid input\n\n";

@@ -6,14 +6,15 @@ bool MenuNetworkStats::start() {
     bool exit = false;
     string option;
     while (!exit) {
-        cout << "-> GLOBAL STATS\n\n";
-        cout << "1 - ARTICULATION POINTS\n";
+        cout << "-> NETWORK STATS\n\n";
+        cout << "1 - GLOBAL STATS\n";
+        cout << "2 - COUNTRY STATS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
         if (option == "1")
-            articulationPoints();
+            exit = globalStatsMenu();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -21,7 +22,24 @@ bool MenuNetworkStats::start() {
     return true;
 }
 
-void MenuNetworkStats::articulationPoints() {
+bool MenuNetworkStats::globalStatsMenu() {
+    string option;
+    while (true) {
+        cout << "-> GLOBAL STATS\n\n";
+        cout << "1 - ARTICULATION POINTS\n";
+
+        cout << "\n type 'q' to quit, 'r' to return\n";
+        cout << "==================================================\n";
+        getline(cin, option);
+        if (option == "1")
+            globalArticulationPoints();
+        else if (option == "r") return false;
+        else if (option == "q") return true;
+        else cout << "Invalid input\n";
+    }
+}
+
+void MenuNetworkStats::globalArticulationPoints() {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
     vector<int> aps = graph.getGlobalArticulationPoints();

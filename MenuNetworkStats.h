@@ -9,8 +9,9 @@ public:
 
     bool start();
     bool globalStatsMenu();
+    bool countryStatsMenu();
 
-    void articulationPoints();
+    void globalArticulationPoints();
 };
 
 #endif //NETWORKMANAGER_MENUNETWORKSTATS_H

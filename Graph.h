@@ -43,6 +43,7 @@ public:
     void bfs(queue<int> q, unordered_set<string> preferences);
     void dfs_art(int v, stack<int> *S, int index);
     vector<int> getGlobalArticulationPoints();
+    vector<int> getContinentalArticulationPoints(unordered_map<int, const Airport*> map, unordered_set<string> countries);
     vector<int> getCountryArticulationPoints(unordered_map<int, const Airport*> map, string country);
 
     vector<Node> getNodes();

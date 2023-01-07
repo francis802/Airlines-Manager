@@ -104,6 +104,31 @@ vector<int> Graph::getGlobalArticulationPoints() {
     return result;
 }
 
+vector<int> Graph::getContinentalArticulationPoints(unordered_map<int, const Airport*> map, unordered_set<string> countries) {
+    stack<int> S;
+    vector<int> result;
+    int index = 1;
+    for (int v = 1; v <= n; v++) {
+        if (countries.find(map[v]->getCountry()) == countries.end()){
+            nodes[v].num = -2;
+        }
+        else nodes[v].num = -1;
+        nodes[v].low = -1;
+        nodes[v].inStack = false;
+        nodes[v].isAP = false;
+    }
+    for (int v = 1; v <= n; v++) {
+        if (nodes[v].num == -1) {
+            dfs_art(v, &S, index);
+        }
+    }
+    for (int v = 1; v<=n; v++) {
+        if (nodes[v].isAP)
+            result.push_back(v);
+    }
+    return result;
+}
+
 vector<int> Graph::getCountryArticulationPoints(unordered_map<int, const Airport*> map, string country) {
     stack<int> S;
     vector<int> result;

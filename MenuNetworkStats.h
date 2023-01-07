@@ -15,7 +15,7 @@ public:
     bool countryStatsMenu();
 
     void globalArticulationPoints();
-    void continentalArticulationPoints(string continent);
+    void continentalArticulationPoints(int option);
     void countryArticulationPoints(string country);
 
     unordered_set<string> getCountriesOf(const string& continent);

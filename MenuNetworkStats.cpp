@@ -45,7 +45,7 @@ bool MenuNetworkStats::globalStatsMenu() {
 }
 
 bool MenuNetworkStats::continentalStatsMenu() {
-    string option;
+    string option, continent;
     while (true) {
         cout << "-> CONTINENTAL STATS\n\n";
         cout << "1 - ARTICULATION POINTS\n";
@@ -55,8 +55,22 @@ bool MenuNetworkStats::continentalStatsMenu() {
         getline(cin, option);
         if (option == "r") return false;
         else if (option == "q") return true;
-        else if (option == "1")
-            continentalArticulationPoints("Africa");
+        else if (option == "1"){
+            cout << "-> CHOOSE CONTINENT:\n\n";
+            cout << "1 - Africa\n";
+            cout << "2 - Asia\n";
+            cout << "3 - Europe\n";
+            cout << "4 - North America\n";
+            cout << "5 - Oceania\n";
+            cout << "6 - South America\n";
+
+            getline(cin, continent);
+            if (continent == "1" || continent == "2" || continent == "3" || continent == "4" || continent == "5" || continent == "6"){
+                int selected = stoi(continent)-1;
+                continentalArticulationPoints(selected);
+            }
+            else cout << "Invalid input\n";
+        }
         else cout << "Invalid input\n";
     }
 }
@@ -91,21 +105,15 @@ void MenuNetworkStats::globalArticulationPoints() {
     }
 }
 
-void MenuNetworkStats::continentalArticulationPoints(string continent) {
-    /*
+void MenuNetworkStats::continentalArticulationPoints(int option) {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
-    vector<int> aps = graph.getGlobalArticulationPoints();
-    cout << "Number of global articulation points: " << aps.size() << "\n";
+    vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
+    vector<int> aps = graph.getContinentalArticulationPoints(map, getCountriesOf(continents[option]));
+    cout << "Number of articulation points in " << continents[option] << ": " << aps.size() << "\n";
     for (int i : aps) {
         cout << map[i]->getName() << "\n";
     }
-     */
-    int total = getCountriesOf("Africa").size() + getCountriesOf("Asia").size()
-            + getCountriesOf("Oceania").size() + getCountriesOf("North America").size()
-            + getCountriesOf("South America").size() + getCountriesOf("Europe").size();
-
-    cout << "Total Countries: " << total << '\n';
 }
 
 void MenuNetworkStats::countryArticulationPoints(string country) {

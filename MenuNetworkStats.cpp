@@ -90,3 +90,43 @@ void MenuNetworkStats::countryArticulationPoints() {
         cout << map[i]->getName() << "\n";
     }
 }
+
+string MenuNetworkStats::get_continent(const string& country) {
+    unordered_map<string, vector<string>> continents;
+    continents.insert({
+            {"Africa",{"Algeria", "Angola", "Benin", "Botswana", "Burkina Faso", "Burundi", "Cape Verde", "Cameroon",
+                       "Central African Republic", "Chad", "Comoros", "Congo (Brazzaville)", "Congo (Kinshasa)",
+                       "Cote d'Ivoire", "Djibouti", "Egypt",  "Equatorial Guinea", "Eritrea",
+                       "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau", "Ivory Coast", "Kenya",
+                       "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius",
+                       "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe",
+                       "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa", "South Sudan", "Sudan",
+                       "Swaziland", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe", "Mayotte", "Reunion",
+                       "Western Sahara"}},
+            {"Asia",{"Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan", "Brunei", "Burma", "Cambodia", "China",
+                           "Georgia", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan", "Kazakhstan",
+                           "Kuwait",   "Kyrgyzstan", "Laos", "Lebanon", "Malaysia", "Maldives", "Mongolia", "Nepal",
+                           "North Korea", "Oman", "Pakistan", "Palestine", "Philippines", "Qatar", "Saudi Arabia",
+                           "Singapore", "South Korea", "Sri Lanka", "Syria",  "Taiwan", "Tajikistan", "Thailand", "East Timor",
+                           "Turkey",  "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam",  "Yemen", "Macau"}},
+            {"Europe",{"Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia",
+                            "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland",
+                            "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta",
+                            "Moldova", "Monaco", "Montenegro", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino",
+                            "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Faroe Islands", "Gibraltar",
+                            "Guernsey", "Isle of Man", "Jersey"}},
+            {"North America",{"Antigua and Barbuda", "Anguilla", "Bahamas", "Barbados", "Belize", "Bermuda", "Canada", "Costa Rica", "Cuba", "Dominica",
+                              "Dominican Republic", "El Salvador", "Grenada", "Guatemala", "Haiti", "Honduras", "Jamaica", "Mexico",
+                              "Nicaragua", "Panama", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+                              "Trinidad and Tobago", "United States", "British Virgin Islands", "Greenland", "Guadeloupe", "Martinique", "Montserrat",
+                              "Saint Pierre and Miquelon", "Turks and Caicos Islands"}},
+            {"South America",{"Argentina", "Aruba", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Falkland Islands", "French Guiana",
+                              "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela", "Netherlands Antilles"}},
+            {"Oceania",{"Australia", "American Samoa", "Christmas Island", "Cocos (Keeling) Islands", "Cook Islands", "Fiji",
+                             "French Polynesia", "Guam", "Kiribati", "Marshall Islands", "Micronesia", "Nauru", "New Caledonia",
+                             "New Zealand", "Niue", "Norfolk Island", "Northern Mariana Islands", "Palau", "Papua New Guinea",
+                             "Pitcairn", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu", "Wallis and Futuna",
+                             "Pitcairn Islands"}}
+    });
+    return "";
+}

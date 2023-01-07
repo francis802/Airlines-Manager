@@ -18,6 +18,8 @@ public:
     void continentalArticulationPoints(int option);
     void countryArticulationPoints(string country);
 
+    void globalDiameter();
+
     unordered_set<string> getCountriesOf(const string& continent);
 };
 

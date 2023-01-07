@@ -46,6 +46,9 @@ public:
     vector<int> getContinentalArticulationPoints(unordered_map<int, const Airport*> map, unordered_set<string> countries);
     vector<int> getCountryArticulationPoints(unordered_map<int, const Airport*> map, string country);
 
+    vector<int> getDistances(int u);
+    int getGlobalDiameter();
+
     vector<Node> getNodes();
 };
 

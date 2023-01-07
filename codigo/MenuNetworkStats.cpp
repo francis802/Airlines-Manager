@@ -32,12 +32,15 @@ bool MenuNetworkStats::globalStatsMenu() {
     while (true) {
         cout << "-> GLOBAL STATS\n\n";
         cout << "1 - ARTICULATION POINTS\n";
+        cout << "2 - DIAMETER\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
         if (option == "1")
             globalArticulationPoints();
+        if (option == "2")
+            globalDiameter();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -134,6 +137,11 @@ void MenuNetworkStats::countryArticulationPoints(string country) {
     for (int i : aps) {
         cout << map[i]->getName() << "\n";
     }
+}
+
+void MenuNetworkStats::globalDiameter() {
+    Graph graph = management.getFlights();
+    cout << "Global diameter: " << graph.getGlobalDiameter() << "\n";
 }
 
 unordered_set<string> MenuNetworkStats::getCountriesOf(const string& continent) {

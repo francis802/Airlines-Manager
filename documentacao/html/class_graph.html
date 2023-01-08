@@ -107,18 +107,48 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac12252e25ec2b65c4fab47b8839621c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ac12252e25ec2b65c4fab47b8839621c2">dfs_art</a> (int v, stack&lt; int &gt; *S, int index)</td></tr>
 <tr class="memdesc:ac12252e25ec2b65c4fab47b8839621c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realiza uma pesquisa em profundidade (Depth-first search) para encontrar os pontos de articulação do grafo.  <a href="class_graph.html#ac12252e25ec2b65c4fab47b8839621c2">More...</a><br /></td></tr>
 <tr class="separator:ac12252e25ec2b65c4fab47b8839621c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1582815eb4aa7f789977b5b626a00b94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a1582815eb4aa7f789977b5b626a00b94">dfs_cc</a> (int v)</td></tr>
+<tr class="memdesc:a1582815eb4aa7f789977b5b626a00b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realiza uma pesquisa em profundidade para marcar como visitados nós.  <a href="class_graph.html#a1582815eb4aa7f789977b5b626a00b94">More...</a><br /></td></tr>
+<tr class="separator:a1582815eb4aa7f789977b5b626a00b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79a39f4cec1d85fe8e0030a9ad4c3ae4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a79a39f4cec1d85fe8e0030a9ad4c3ae4">dfs_scc</a> (int v, stack&lt; int &gt; *S, int index, list&lt; list&lt; int &gt; &gt; *result)</td></tr>
+<tr class="memdesc:a79a39f4cec1d85fe8e0030a9ad4c3ae4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Realiza pesquisa em profundidade de modo a encontrar os componentes fortemente conexos do grafo.  <a href="class_graph.html#a79a39f4cec1d85fe8e0030a9ad4c3ae4">More...</a><br /></td></tr>
+<tr class="separator:a79a39f4cec1d85fe8e0030a9ad4c3ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a0bc4e58646614d446b34756af7ce46"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a0a0bc4e58646614d446b34756af7ce46">getGlobalArticulationPoints</a> ()</td></tr>
 <tr class="separator:a0a0bc4e58646614d446b34756af7ce46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35b4bac72ad1a8b3c9099c0fc6ece4e2"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a35b4bac72ad1a8b3c9099c0fc6ece4e2">getContinentalArticulationPoints</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, unordered_set&lt; string &gt; countries)</td></tr>
 <tr class="separator:a35b4bac72ad1a8b3c9099c0fc6ece4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab253428bedc61f248fbe6ed2677ae52d"><td class="memItemLeft" align="right" valign="top">vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ab253428bedc61f248fbe6ed2677ae52d">getCountryArticulationPoints</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, string country)</td></tr>
 <tr class="separator:ab253428bedc61f248fbe6ed2677ae52d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84b39ad6e9c2407b88fff4b4f4e63306"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a84b39ad6e9c2407b88fff4b4f4e63306">getMaxDistance</a> (int u)</td></tr>
-<tr class="memdesc:a84b39ad6e9c2407b88fff4b4f4e63306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina qual a distância de um nó inicial até ao nó mais disntante de si.  <a href="class_graph.html#a84b39ad6e9c2407b88fff4b4f4e63306">More...</a><br /></td></tr>
-<tr class="separator:a84b39ad6e9c2407b88fff4b4f4e63306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b2d082f68897b66d1dc8a73761666aa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a7b2d082f68897b66d1dc8a73761666aa">getMaxDistance</a> (int u, unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map={}, unordered_set&lt; std::string &gt; countries={})</td></tr>
+<tr class="memdesc:a7b2d082f68897b66d1dc8a73761666aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina qual a distância de um nó inicial até ao nó mais disntante de si.  <a href="class_graph.html#a7b2d082f68897b66d1dc8a73761666aa">More...</a><br /></td></tr>
+<tr class="separator:a7b2d082f68897b66d1dc8a73761666aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d7eeab18e1cbbea1222c78d7f98d9b4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a4d7eeab18e1cbbea1222c78d7f98d9b4">getGlobalDiameter</a> ()</td></tr>
 <tr class="memdesc:a4d7eeab18e1cbbea1222c78d7f98d9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o diâmetro do grafo, isto é, a maior distância entre dois nós.  <a href="class_graph.html#a4d7eeab18e1cbbea1222c78d7f98d9b4">More...</a><br /></td></tr>
 <tr class="separator:a4d7eeab18e1cbbea1222c78d7f98d9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace54db9dc0754705abf19b45ea12c676"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#ace54db9dc0754705abf19b45ea12c676">getContinentalDiameter</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, unordered_set&lt; string &gt; countries)</td></tr>
+<tr class="memdesc:ace54db9dc0754705abf19b45ea12c676"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o diâmetro do grafo para um determinado continente, isto é, a maior distância entre dois nós.  <a href="class_graph.html#ace54db9dc0754705abf19b45ea12c676">More...</a><br /></td></tr>
+<tr class="separator:ace54db9dc0754705abf19b45ea12c676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac423032e4fa1195cf407c86c3e70b53"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#aac423032e4fa1195cf407c86c3e70b53">getCountryDiameter</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, string country)</td></tr>
+<tr class="memdesc:aac423032e4fa1195cf407c86c3e70b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o diâmetro do grafo para um determinado país, isto é, a maior distância entre dois nós.  <a href="class_graph.html#aac423032e4fa1195cf407c86c3e70b53">More...</a><br /></td></tr>
+<tr class="separator:aac423032e4fa1195cf407c86c3e70b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cee971a9c2caf7760dd832b7373c0f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a9cee971a9c2caf7760dd832b7373c0f1">getGlobalConnectedComponents</a> ()</td></tr>
+<tr class="memdesc:a9cee971a9c2caf7760dd832b7373c0f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o número de componentes conexos.  <a href="class_graph.html#a9cee971a9c2caf7760dd832b7373c0f1">More...</a><br /></td></tr>
+<tr class="separator:a9cee971a9c2caf7760dd832b7373c0f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115840e123fb476366bf2ea6cb272388"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a115840e123fb476366bf2ea6cb272388">getContinentalConnectedComponents</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, unordered_set&lt; string &gt; countries)</td></tr>
+<tr class="memdesc:a115840e123fb476366bf2ea6cb272388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o número de componentes conexos num determinado continente.  <a href="class_graph.html#a115840e123fb476366bf2ea6cb272388">More...</a><br /></td></tr>
+<tr class="separator:a115840e123fb476366bf2ea6cb272388"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6374031b65ab3dac26866f67cf2c6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8b6374031b65ab3dac26866f67cf2c6d">getCountryConnectedComponents</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, string country)</td></tr>
+<tr class="memdesc:a8b6374031b65ab3dac26866f67cf2c6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o número de componentes conexos num determinado país.  <a href="class_graph.html#a8b6374031b65ab3dac26866f67cf2c6d">More...</a><br /></td></tr>
+<tr class="separator:a8b6374031b65ab3dac26866f67cf2c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52940aa668bb941b831ce7f519bbb608"><td class="memItemLeft" align="right" valign="top">list&lt; list&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a52940aa668bb941b831ce7f519bbb608">getGlobalSCC</a> ()</td></tr>
+<tr class="memdesc:a52940aa668bb941b831ce7f519bbb608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o número de componentes fortemente conexos.  <a href="class_graph.html#a52940aa668bb941b831ce7f519bbb608">More...</a><br /></td></tr>
+<tr class="separator:a52940aa668bb941b831ce7f519bbb608"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8424f4a7f83925711b175e2bea956c29"><td class="memItemLeft" align="right" valign="top">list&lt; list&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8424f4a7f83925711b175e2bea956c29">getContinentalSCC</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, unordered_set&lt; string &gt; countries)</td></tr>
+<tr class="memdesc:a8424f4a7f83925711b175e2bea956c29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o número de componentes fortemente conexos num determinado continente.  <a href="class_graph.html#a8424f4a7f83925711b175e2bea956c29">More...</a><br /></td></tr>
+<tr class="separator:a8424f4a7f83925711b175e2bea956c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8186aac4a2526f9d7a25780e56281f11"><td class="memItemLeft" align="right" valign="top">list&lt; list&lt; int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a8186aac4a2526f9d7a25780e56281f11">getCountrySCC</a> (unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt; map, string country)</td></tr>
+<tr class="memdesc:a8186aac4a2526f9d7a25780e56281f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determina o número de componentes fortemente conexos num determinado país.  <a href="class_graph.html#a8186aac4a2526f9d7a25780e56281f11">More...</a><br /></td></tr>
+<tr class="separator:a8186aac4a2526f9d7a25780e56281f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabc63e378ed173a4b2daa42f6b49a60a"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#aabc63e378ed173a4b2daa42f6b49a60a">getNodes</a> ()</td></tr>
 <tr class="separator:aabc63e378ed173a4b2daa42f6b49a60a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -301,6 +331,83 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 
 </div>
 </div>
+<a id="a1582815eb4aa7f789977b5b626a00b94" name="a1582815eb4aa7f789977b5b626a00b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1582815eb4aa7f789977b5b626a00b94">&#9670;&#160;</a></span>dfs_cc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Graph::dfs_cc </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Realiza uma pesquisa em profundidade para marcar como visitados nós. </p>
+<p >Complexidade: O(|E|+|V|) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td><a class="el" href="struct_graph_1_1_node.html" title="Struct utilizado para representar um vértice do grafo.">Node</a> a partir do qual se inicia a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a79a39f4cec1d85fe8e0030a9ad4c3ae4" name="a79a39f4cec1d85fe8e0030a9ad4c3ae4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79a39f4cec1d85fe8e0030a9ad4c3ae4">&#9670;&#160;</a></span>dfs_scc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Graph::dfs_scc </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">stack&lt; int &gt; *&#160;</td>
+          <td class="paramname"><em>S</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list&lt; list&lt; int &gt; &gt; *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Realiza pesquisa em profundidade de modo a encontrar os componentes fortemente conexos do grafo. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td><a class="el" href="struct_graph_1_1_node.html" title="Struct utilizado para representar um vértice do grafo.">Node</a> a partir do qual se inicia a pesquisa </td></tr>
+    <tr><td class="paramname">S</td><td>Stack para guardar quais os elementos a serem pesquisados </td></tr>
+    <tr><td class="paramname">index</td><td>Posição anterior da visita </td></tr>
+    <tr><td class="paramname">result</td><td>Componentes fortemente conexos do grafo </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a35b4bac72ad1a8b3c9099c0fc6ece4e2" name="a35b4bac72ad1a8b3c9099c0fc6ece4e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35b4bac72ad1a8b3c9099c0fc6ece4e2">&#9670;&#160;</a></span>getContinentalArticulationPoints()</h2>
 
@@ -334,6 +441,120 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vetor contendo pontos de articulação no continente </dd></dl>
+
+</div>
+</div>
+<a id="a115840e123fb476366bf2ea6cb272388" name="a115840e123fb476366bf2ea6cb272388"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115840e123fb476366bf2ea6cb272388">&#9670;&#160;</a></span>getContinentalConnectedComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::getContinentalConnectedComponents </td>
+          <td>(</td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unordered_set&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>countries</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o número de componentes conexos num determinado continente. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Map em que a chave é o número do node e o valor o aeroporto correspondente </td></tr>
+    <tr><td class="paramname">countries</td><td>países pertencentes ao continente a fazer a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Número de componentes conexos no continente </dd></dl>
+
+</div>
+</div>
+<a id="ace54db9dc0754705abf19b45ea12c676" name="ace54db9dc0754705abf19b45ea12c676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace54db9dc0754705abf19b45ea12c676">&#9670;&#160;</a></span>getContinentalDiameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::getContinentalDiameter </td>
+          <td>(</td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unordered_set&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>countries</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o diâmetro do grafo para um determinado continente, isto é, a maior distância entre dois nós. </p>
+<p >Complexidade O(|V|*(|V|+|E|)) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>map em que a chave é o número do node e o value um apontador de um aeroporto </td></tr>
+    <tr><td class="paramname">countries</td><td>países pertencentes ao continente a fazer a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Diâmetro do grafo para um determinado continente </dd></dl>
+
+</div>
+</div>
+<a id="a8424f4a7f83925711b175e2bea956c29" name="a8424f4a7f83925711b175e2bea956c29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8424f4a7f83925711b175e2bea956c29">&#9670;&#160;</a></span>getContinentalSCC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list&lt; list&lt; int &gt; &gt; Graph::getContinentalSCC </td>
+          <td>(</td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unordered_set&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>countries</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o número de componentes fortemente conexos num determinado continente. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Map em que a chave é o número do node e o valor o aeroporto correspondente </td></tr>
+    <tr><td class="paramname">countries</td><td>países pertencentes ao continente a fazer a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Número de componentes fortemente conexos no continente </dd></dl>
 
 </div>
 </div>
@@ -373,6 +594,120 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 
 </div>
 </div>
+<a id="a8b6374031b65ab3dac26866f67cf2c6d" name="a8b6374031b65ab3dac26866f67cf2c6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b6374031b65ab3dac26866f67cf2c6d">&#9670;&#160;</a></span>getCountryConnectedComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::getCountryConnectedComponents </td>
+          <td>(</td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>country</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o número de componentes conexos num determinado país. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Map em que a chave é o número do node e o valor o aeroporto correspondente </td></tr>
+    <tr><td class="paramname">country</td><td>país a efetuar a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Número de componentes conexos no país </dd></dl>
+
+</div>
+</div>
+<a id="aac423032e4fa1195cf407c86c3e70b53" name="aac423032e4fa1195cf407c86c3e70b53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac423032e4fa1195cf407c86c3e70b53">&#9670;&#160;</a></span>getCountryDiameter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::getCountryDiameter </td>
+          <td>(</td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>country</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o diâmetro do grafo para um determinado país, isto é, a maior distância entre dois nós. </p>
+<p >Complexidade O(|V|*(|V|+|E|)) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>map em que a chave é o número do node e o value um apontador de um aeroporto </td></tr>
+    <tr><td class="paramname">country</td><td>País a efetuar a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Diâmetro do grafo para um determinado país </dd></dl>
+
+</div>
+</div>
+<a id="a8186aac4a2526f9d7a25780e56281f11" name="a8186aac4a2526f9d7a25780e56281f11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8186aac4a2526f9d7a25780e56281f11">&#9670;&#160;</a></span>getCountrySCC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list&lt; list&lt; int &gt; &gt; Graph::getCountrySCC </td>
+          <td>(</td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>country</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o número de componentes fortemente conexos num determinado país. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>Map em que a chave é o número do node e o valor o aeroporto correspondente </td></tr>
+    <tr><td class="paramname">country</td><td>país a efetuar a pesquisa </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Número de componentes fortemente conexos no país </dd></dl>
+
+</div>
+</div>
 <a id="a0a0bc4e58646614d446b34756af7ce46" name="a0a0bc4e58646614d446b34756af7ce46"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a0bc4e58646614d446b34756af7ce46">&#9670;&#160;</a></span>getGlobalArticulationPoints()</h2>
 
@@ -388,6 +723,26 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
       </table>
 </div><div class="memdoc">
 <p >Define os campos dos Nodes do grafo adequadamente, de modo a que seja realizada uma pesquisa por pontos de articulação em todos os Nodes. </p><dl class="section return"><dt>Returns</dt><dd>Vetor contendo pontos de articulação </dd></dl>
+
+</div>
+</div>
+<a id="a9cee971a9c2caf7760dd832b7373c0f1" name="a9cee971a9c2caf7760dd832b7373c0f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cee971a9c2caf7760dd832b7373c0f1">&#9670;&#160;</a></span>getGlobalConnectedComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Graph::getGlobalConnectedComponents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o número de componentes conexos. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -411,8 +766,28 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 
 </div>
 </div>
-<a id="a84b39ad6e9c2407b88fff4b4f4e63306" name="a84b39ad6e9c2407b88fff4b4f4e63306"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84b39ad6e9c2407b88fff4b4f4e63306">&#9670;&#160;</a></span>getMaxDistance()</h2>
+<a id="a52940aa668bb941b831ce7f519bbb608" name="a52940aa668bb941b831ce7f519bbb608"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52940aa668bb941b831ce7f519bbb608">&#9670;&#160;</a></span>getGlobalSCC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">list&lt; list&lt; int &gt; &gt; Graph::getGlobalSCC </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Determina o número de componentes fortemente conexos. </p>
+<p >Complexidade: O(|V|+|E|) </p><dl class="section return"><dt>Returns</dt><dd>Componentes fortemente conexos do grafo </dd></dl>
+
+</div>
+</div>
+<a id="a7b2d082f68897b66d1dc8a73761666aa" name="a7b2d082f68897b66d1dc8a73761666aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b2d082f68897b66d1dc8a73761666aa">&#9670;&#160;</a></span>getMaxDistance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -421,8 +796,24 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
           <td class="memname">int Graph::getMaxDistance </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>u</em></td><td>)</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unordered_map&lt; int, const <a class="el" href="class_airport.html">Airport</a> * &gt;&#160;</td>
+          <td class="paramname"><em>map</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unordered_set&lt; std::string &gt;&#160;</td>
+          <td class="paramname"><em>countries</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -431,6 +822,8 @@ vector&lt; <a class="el" href="struct_graph_1_1_node.html">Node</a> &gt;&#160;</
 <p >Complexidade: O(|V|+|E|) </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">u</td><td>Nó inicial </td></tr>
+    <tr><td class="paramname">map</td><td>mapa dos aeroportos a serem incluídos na pesquisa em que a chave é o número do node e o value um apontador para o aeroporto </td></tr>
+    <tr><td class="paramname">countries</td><td>países a incluir na pesquisa </td></tr>
   </table>
   </dd>
 </dl>

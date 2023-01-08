@@ -90,8 +90,23 @@ public:
      */
     void dfs_art(int v, stack<int> *S, int index);
 
+    /**
+     * \brief Realiza uma pesquisa em profundidade para marcar como visitados nós
+     *
+     * Complexidade: O(|E|+|V|)
+     * @param v Node a partir do qual se inicia a pesquisa
+     */
     void dfs_cc(int v);
 
+    /**
+     * \brief Realiza pesquisa em profundidade de modo a encontrar os componentes fortemente conexos do grafo
+     *
+     * Complexidade: O(|V|+|E|)
+     * @param v Node a partir do qual se inicia a pesquisa
+     * @param S Stack para guardar quais os elementos a serem pesquisados
+     * @param index Posição anterior da visita
+     * @param result Componentes fortemente conexos do grafo
+     */
     void dfs_scc(int v, stack<int> *S, int index, list<list<int>> *result);
 
     /**
@@ -121,6 +136,8 @@ public:
      *
      * Complexidade: O(|V|+|E|)
      * @param u Nó inicial
+     * @param map mapa dos aeroportos a serem incluídos na pesquisa em que a chave é o número do node e o value um apontador para o aeroporto
+     * @param countries países a incluir na pesquisa
      * @return Valor da distância de u até o nó mais distante de si
      */
     int getMaxDistance(int u, unordered_map<int, const Airport *> map = {}, unordered_set<std::string> countries = {});
@@ -133,19 +150,80 @@ public:
      */
     int getGlobalDiameter();
 
+    /**
+     * \brief Determina o diâmetro do grafo para um determinado continente, isto é, a maior distância entre dois nós
+     *
+     * Complexidade O(|V|*(|V|+|E|))
+     * @param map map em que a chave é o número do node e o value um apontador de um aeroporto
+     * @param countries países pertencentes ao continente a fazer a pesquisa
+     * @return Diâmetro do grafo para um determinado continente
+     */
     int getContinentalDiameter(unordered_map<int, const Airport*> map, unordered_set<string> countries);
 
+    /**
+     * \brief Determina o diâmetro do grafo para um determinado país, isto é, a maior distância entre dois nós
+     *
+     * Complexidade O(|V|*(|V|+|E|))
+     * @param map map em que a chave é o número do node e o value um apontador de um aeroporto
+     * @param country País a efetuar a pesquisa
+     * @return Diâmetro do grafo para um determinado país
+     */
     int getCountryDiameter(unordered_map<int, const Airport*> map, string country);
 
-
+    /**
+     * \brief Determina o número de componentes conexos
+     *
+     * Complexidade: O(|V|+|E|)
+     * @return
+     */
     int getGlobalConnectedComponents();
 
+    /**
+     * \brief Determina o número de componentes conexos num determinado continente
+     *
+     * Complexidade: O(|V|+|E|)
+     * @param map Map em que a chave é o número do node e o valor o aeroporto correspondente
+     * @param countries países pertencentes ao continente a fazer a pesquisa
+     * @return Número de componentes conexos no continente
+     */
     int getContinentalConnectedComponents(unordered_map<int, const Airport*> map, unordered_set<string> countries);
 
+    /**
+     * \brief Determina o número de componentes conexos num determinado país
+     *
+     * Complexidade: O(|V|+|E|)
+     * @param map Map em que a chave é o número do node e o valor o aeroporto correspondente
+     * @param country país a efetuar a pesquisa
+     * @return Número de componentes conexos no país
+     */
     int getCountryConnectedComponents(unordered_map<int, const Airport*> map, string country);
 
+    /**
+     * \brief Determina o número de componentes fortemente conexos
+     *
+     * Complexidade: O(|V|+|E|)
+     * @return Componentes fortemente conexos do grafo
+     */
     list<list<int>> getGlobalSCC();
+
+    /**
+     * \brief Determina o número de componentes fortemente conexos num determinado continente
+     *
+     * Complexidade: O(|V|+|E|)
+     * @param map Map em que a chave é o número do node e o valor o aeroporto correspondente
+     * @param countries países pertencentes ao continente a fazer a pesquisa
+     * @return Número de componentes fortemente conexos no continente
+     */
     list<list<int>> getContinentalSCC(unordered_map<int, const Airport*> map, unordered_set<string> countries);
+
+    /**
+     * \brief Determina o número de componentes fortemente conexos num determinado país
+     *
+     * Complexidade: O(|V|+|E|)
+     * @param map Map em que a chave é o número do node e o valor o aeroporto correspondente
+     * @param country país a efetuar a pesquisa
+     * @return Número de componentes fortemente conexos no país
+     */
     list<list<int>> getCountrySCC(unordered_map<int, const Airport*> map, string country);
 
     /**

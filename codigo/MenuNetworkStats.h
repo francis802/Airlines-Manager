@@ -64,20 +64,50 @@ public:
      */
     void globalDiameter();
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular o diâmetro num determinado continente e imprimir os resultados.
+     * @param option Número do continente
+     */
     void continentalDiameter(int option);
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular o diâmetro num determinado país e imprimir os resultados.
+     * @param option País
+     */
     void countryDiameter(string country);
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular os componentes conexos e imprimir os resultados.
+     */
     void globalConnectedComponents();
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular os componentes conexos num determinado continente e imprimir os resultados.
+     * @param option Número do continente
+     */
     void continentalConnectedComponents(int option);
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular os componentes conexos num determinado país e imprimir os resultados.
+     * @param option País
+     */
     void countryConnectedComponents(string country);
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular os componentes fortemente conexos e imprimir os resultados.
+     */
     void globalSCC();
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular os componentes fortemente conexos num determinado continente e imprimir os resultados.
+     * @param option Número do continente
+     */
     void continentalSCC(int option);
 
+    /**
+     * Função responsável por chamar o método da classe Graph para calcular os componentes fortemente conexos num determinado país e imprimir os resultados.
+     * @param option País
+     */
     void countrySCC(string country);
 
     /**

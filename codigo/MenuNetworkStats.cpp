@@ -213,7 +213,7 @@ void MenuNetworkStats::continentalConnectedComponents(int option) {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
     vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
-    int cc = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
+    int cc = graph.getContinentalConnectedComponents(map, getCountriesOf(continents[option]));
     cout << "Connected Components in " << continents[option] << ": " << cc << "\n";
 }
 

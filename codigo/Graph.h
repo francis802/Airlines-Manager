@@ -76,6 +76,9 @@ public:
      * @param q Nodes a partir dos quais se inicia o bfs
      * @param preferences Preferências do utilizador relativas às Airlines
      */
+
+    void dfs(int v);
+
     void bfs(queue<int> q, unordered_set<string> preferences);
 
     /**
@@ -127,12 +130,15 @@ public:
      */
     int getGlobalDiameter();
 
+    int getConnectedComponents();
+
     /**
      * Getter dos nodes do grafo
      * @return Nodes do grafo
      */
     vector<Node> getNodes();
 };
+
 
 
 #endif //NETWORKMANAGER_GRAPH_H

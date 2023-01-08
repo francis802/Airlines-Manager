@@ -12,6 +12,15 @@ void Graph::addFlight(int src, int dest, const Airline* airline) {
     nodes[src].adj.push_back({dest, airline});
 }
 
+void Graph::dfs(int v) {
+    nodes[v].visited = true;
+    for (auto e : nodes[v].adj) {
+        int w = e.dest;
+        if (!nodes[w].visited)
+            dfs(w);
+    }
+}
+
 void Graph::bfs(queue<int> q, unordered_set<string> preferences) {
     for (int i=1; i<=n; i++) {
         nodes[i].visited = false;
@@ -190,4 +199,15 @@ int Graph::getGlobalDiameter() {
         }
     }
     return max;
+}
+
+int Graph::getConnectedComponents() {
+    int count = 0;
+    for (int v = 1; v <= n; v++) {
+        if (!nodes[v].visited) {
+            count++;
+            dfs(v);
+        }
+    }
+    return count;
 }

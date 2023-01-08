@@ -33,6 +33,7 @@ bool MenuNetworkStats::globalStatsMenu() {
         cout << "-> GLOBAL STATS\n\n";
         cout << "1 - ARTICULATION POINTS\n";
         cout << "2 - DIAMETER\n";
+        cout << "3 - CONNECTED COMPONENTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -41,6 +42,8 @@ bool MenuNetworkStats::globalStatsMenu() {
             globalArticulationPoints();
         if (option == "2")
             globalDiameter();
+        if (option == "3")
+            globalConnectedComponents();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -143,6 +146,12 @@ void MenuNetworkStats::globalDiameter() {
     Graph graph = management.getFlights();
     int globalDiameter = graph.getGlobalDiameter();
     cout << "Global diameter: " << globalDiameter << "\n";
+}
+
+void MenuNetworkStats::globalConnectedComponents() {
+    Graph graph = management.getFlights();
+    int globalConnectedComponents = graph.getConnectedComponents();
+    cout << "Global connected components: " << globalConnectedComponents << "\n";
 }
 
 unordered_set<string> MenuNetworkStats::getCountriesOf(const string& continent) {

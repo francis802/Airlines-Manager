@@ -68,6 +68,9 @@ public:
      * @param continent Continente
      * @return Todos os países do continente
      */
+
+    void globalConnectedComponents();
+
     unordered_set<string> getCountriesOf(const string& continent);
 };
 

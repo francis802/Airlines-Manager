@@ -11,7 +11,7 @@
 using namespace std;
 
 /**
- * Classe Flight Management
+ * \brief Classe Flight Management
  *
  * Classe usada para auxiliar o tratamento dos dados
  */
@@ -26,7 +26,8 @@ public:
     FlightManagement(string airports, string airlines, string flights);
 
     /**
-     * Recolhe os dados dos aeroportos a partir de um ficheiro
+     * \brief Recolhe os dados dos aeroportos a partir de um ficheiro
+     *
      * Complexidade: O(n)
      * @param filename Ficheiro com informações dos aeroportos
      * @return
@@ -34,32 +35,55 @@ public:
     int getDataAirport(string filename);
 
     /**
-     * Recolhe os dados das companhias aéreas a partir de um ficheiro
+     * \brief Recolhe os dados das companhias aéreas a partir de um ficheiro
+     *
      * Complexidade: O(n)
      * @param filename Ficheiro com informações das companhias aéreas
      */
     void getDataAirline(string filename);
 
     /**
-     * Recolhe os dados dos voos a partir de um ficheiro. Responsável por adicionar edges ao grafo.
+     * \brief Recolhe os dados dos voos a partir de um ficheiro. Responsável por adicionar edges ao grafo.
+     *
      * Complexidade: O(n)
      * @param filename Ficheiro com informações dos voos
      */
     void getDataFlights(string filename);
 
     /**
-     * Lê as preferências de companhias aéreas guardadas no ficheiro 'preferences'
+     * \brief Lê as preferências de companhias aéreas guardadas no ficheiro 'preferences'
+     *
      * Complexidade: O(n)
      * @return Preferências de companhias aéreas
      */
     unordered_set<string> readPreferences();
 
     /**
-     * Atualiza o ficheiro preferences com base nas preferências guardadas
+     * \brief Atualiza o ficheiro preferences com base nas preferências guardadas
+     *
      * Complexidade: O(n)
      * @param preferences Preferências de companhias aéreas
      */
     void savePreferences(unordered_set<string> preferences);
+
+    /**
+     * \brief Calcula a distância entre dois pontos no globo, dadas as suas coordenadas geográficas
+     *
+     * Complexidade: O(log(n))
+     * @param lat1 Latitude da primeira localizalção
+     * @param lon1 Longitude da primeira localizalção
+     * @param lat2 Latitude da segunda localização
+     * @param lon2 Longitude da segunda localização
+     * @return Distância das duas localizações
+     */
+    static double haversine(double lat1, double lon1, double lat2, double lon2);
+
+    /**
+     * Função utilizada para receber input do utilizador na forma de números
+     * @param output Mensagem a imprimir no ecrã
+     * @return Número recebido como input
+     */
+    double getNumbers(string output);
 
     /**
      * Getter do unordered map AirportNode

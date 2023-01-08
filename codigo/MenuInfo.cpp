@@ -181,84 +181,26 @@ void MenuInfo::airportByCountry() {
 }
 
 void MenuInfo::airportByLocation() {
-    bool found = false;
-    string stringInput;
-    float minLat, maxLat, minLon, maxLon;
-    int i = 0;
-    vector<string> messages = {"Min Latitude: ", "Max Latitude: ", "Min Longitude: ", "Max Longitude: "};
-    while (i<4){
-        cout << '\n' << messages[i];
-        getline(cin, stringInput);
-        if (i == 0){
-            try{
-                minLat = stof(stringInput);
-                if (minLat<-90 || minLat>90){
-                    cout << "Invalid Latitude Range: [-90.0,90.0]";
-                    continue;
-                }
-            }
-            catch (invalid_argument){
-                cout << "Invalid Input\n";
-                continue;
-            }
-        }
-        if (i == 1){
-            try{
-                maxLat = stof(stringInput);
-                if (maxLat<-90 || maxLat>90){
-                    cout << "Invalid Latitude Range: [-90.0,90.0]";
-                    continue;
-                }
-                if (maxLat<minLat){
-                    cout << "Max Latitude can't be inferior to Min Latitude";
-                    continue;
-                }
-            }
-            catch (invalid_argument){
-                cout << "Invalid Input\n";
-                continue;
-            }
-        }
-        if (i == 2){
-            try{
-                minLon = stof(stringInput);
-                if (minLon<-180 || minLon>180){
-                    cout << "Invalid Longitude Range: [-180.0,180.0]";
-                    continue;
-                }
-            }
-            catch (invalid_argument){
-                cout << "Invalid Input\n";
-                continue;
-            }
-        }
-        if (i == 3){
-            try{
-                maxLon = stof(stringInput);
-                if (maxLon<-180 || maxLon>180){
-                    cout << "Invalid Longitude Range: [-180.0,180.0]";
-                    continue;
-                }
-                if (maxLon<minLon){
-                    cout << "Max Longitude can't be inferior to Min Longitude";
-                    continue;
-                }
-            }
-            catch (invalid_argument){
-                cout << "Invalid Input\n";
-                continue;
-            }
-        }
-        i++;
+    string latitude, longitude, distance;
+    double lat, lon, dist;
+    lat = management.getNumbers("Latitude: ");
+    while (lat < -90 || lat > 90){
+        cout << "Invalid Latitude Range: [-90.0,90.0]\n";
+        lat = management.getNumbers("Latitude: ");
     }
-    for (const auto& airport : management.getAirportNode()){
-        if (minLat <= airport.first.getLatitude() && airport.first.getLatitude() <= maxLat
-            && minLon <= airport.first.getLongitude() && airport.first.getLongitude() <= maxLon){
-            printAirportInfo(airport.first);
-            found = true;
-        }
+    lon = management.getNumbers("Longitude: ");
+    while (lon < -180 || lon > 180){
+        cout << "Invalid Longitude Range: [-180.0,180.0]";
+        lon = management.getNumbers("Longitude: ");
     }
-    if(!found) cout << "No airport in Location Range\n";
+    dist = management.getNumbers("Max Distance: ");
+
+    queue<int> airports;
+
+    for (auto i : management.getAirportNode()){
+        if (management.haversine(i.first.getLatitude(), i.first.getLongitude(), lat, lon) < dist)
+            printAirportInfo(i.first);
+    }
 }
 
 void MenuInfo::flightsAvailable() {

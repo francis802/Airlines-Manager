@@ -6,7 +6,8 @@
 using namespace std;
 
 /**
- * Classe Airport
+ * \brief Classe Airport
+ *
  * Um aeroporto é definido pelo seu código IATA, nome, cidade, país, longitude e latitude
  */
 class Airport {

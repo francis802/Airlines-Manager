@@ -1,5 +1,7 @@
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <cmath>
 #include "FlightManagement.h"
 
 FlightManagement::FlightManagement(string airports, string airlines, string flights) {
@@ -89,6 +91,42 @@ unordered_set<string> FlightManagement::readPreferences() {
         preferences.insert(line);
     }
     return preferences;
+}
+
+double FlightManagement::haversine(double lat1, double lon1, double lat2, double lon2)
+{
+    // distance between latitudes and longitudes
+    double dLat = (lat2 - lat1) * M_PI / 180.0;
+    double dLon = (lon2 - lon1) * M_PI / 180.0;
+
+    // convert to radians
+    lat1 = (lat1) * M_PI / 180.0;
+    lat2 = (lat2) * M_PI / 180.0;
+
+    // apply formulae
+    double a = pow(sin(dLat / 2), 2) +
+               pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+    double rad = 6371;
+    double c = 2 * asin(sqrt(a));
+    return rad * c;
+}
+
+double FlightManagement::getNumbers(string output){
+    bool fail = true;
+    string num;
+    double converted;
+    while (fail){
+        cout << output;
+        getline(cin, num);
+        fail = false;
+        try{
+            converted = stod(num);
+        } catch (invalid_argument){
+            fail = true;
+            cout << "invalid input\n";
+        }
+    }
+    return converted;
 }
 
 const unordered_map<Airport, int, AirportHash> &FlightManagement::getAirportNode() const {

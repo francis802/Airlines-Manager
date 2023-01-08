@@ -6,7 +6,8 @@
 using namespace std;
 
 /**
- * Classe Airline
+ * \brief Classe Airline
+ *
  * Uma airline (companhia aérea) é definida pelo seu código ICAO,nome oficial, alcunha e país de origem.
  */
 class Airline {

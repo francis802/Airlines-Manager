@@ -11,14 +11,15 @@
 #include "Airport.h"
 
 /**
- * Classe Graph
+ * \brief Classe Graph
  *
  * Classe usada para representar os voos
  */
 class Graph {
 private:
     /**
-     * Struct utilizada para representar uma aresta do grafo.
+     * \brief Struct utilizada para representar uma aresta do grafo.
+     *
      * Uma aresta do grafo é um voo com um determinado destino e companhia aérea.
      */
     struct Edge{
@@ -27,7 +28,8 @@ private:
     };
 
     /**
-     * Struct utilizado para representar um vértice do grafo.
+     * \brief Struct utilizado para representar um vértice do grafo.
+     *
      * Um vértice do grafo é um aeroporto.
      */
     struct Node{
@@ -67,8 +69,9 @@ public:
     void addFlight(int src, int dest, const Airline* airline);
 
     /**
-     * Realiza uma pesquisa em largura (Breadth-first search) respeitando as preferências do utilizador.
+     * \brief Realiza uma pesquisa em largura (Breadth-first search) respeitando as preferências do utilizador.
      * Para cada node visitado regista a distância (número de nodes percorridos até lá chegar) e o path (node(s) a partir dos quais se atingiu o node atual)
+     *
      * Complexidade: O(|V|+|E|)
      * @param q Nodes a partir dos quais se inicia o bfs
      * @param preferences Preferências do utilizador relativas às Airlines
@@ -76,7 +79,8 @@ public:
     void bfs(queue<int> q, unordered_set<string> preferences);
 
     /**
-     * Realiza uma pesquisa em profundidade (Depth-first search) para encontrar os pontos de articulação do grafo.
+     * \brief Realiza uma pesquisa em profundidade (Depth-first search) para encontrar os pontos de articulação do grafo.
+     *
      * Complexidade: O(|V|+|E|)
      * @param v Node a partir do qual se inicia a pesquisa
      * @param S Stack para guardar quais os elementos que estão a ser pesquisados
@@ -107,7 +111,8 @@ public:
     vector<int> getCountryArticulationPoints(unordered_map<int, const Airport*> map, string country);
 
     /**
-     * Determina qual a distância de um nó inicial até ao nó mais disntante de si
+     * \brief Determina qual a distância de um nó inicial até ao nó mais disntante de si
+     *
      * Complexidade: O(|V|+|E|)
      * @param u Nó inicial
      * @return Valor da distância de u até o nó mais distante de si
@@ -115,7 +120,8 @@ public:
     int getMaxDistance(int u);
 
     /**
-     * Determina o diâmetro do grafo, isto é, a maior distância entre dois nós
+     * \brief Determina o diâmetro do grafo, isto é, a maior distância entre dois nós
+     *
      * Complexidade O(|V|*(|V|+|E|))
      * @return Diâmetro do grafo
      */

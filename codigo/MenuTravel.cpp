@@ -1,5 +1,4 @@
 #include "MenuTravel.h"
-#include <cmath>
 #include <queue>
 
 MenuTravel::MenuTravel(const FlightManagement &management): Menu(management) {}
@@ -95,25 +94,6 @@ void MenuTravel::getAirlines(list<int>::iterator dep, list<int>::iterator arr, u
     }
 }
 
-
-double MenuTravel::haversine(double lat1, double lon1, double lat2, double lon2)
-{
-    // distance between latitudes and longitudes
-    double dLat = (lat2 - lat1) * M_PI / 180.0;
-    double dLon = (lon2 - lon1) * M_PI / 180.0;
-
-    // convert to radians
-    lat1 = (lat1) * M_PI / 180.0;
-    lat2 = (lat2) * M_PI / 180.0;
-
-    // apply formulae
-    double a = pow(sin(dLat / 2), 2) +
-               pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
-    double rad = 6371;
-    double c = 2 * asin(sqrt(a));
-    return rad * c;
-}
-
 queue<int> MenuTravel::getAirports() {
     while (true){
         cout << "\t1 - AIRPORT\n";
@@ -153,35 +133,25 @@ queue<int> MenuTravel::getAirports() {
         } else if (option == "3"){
             string latitude, longitude, distance;
             double lat, lon, dist;
-            lat = getNumbers("Latitude: ");
-            lon = getNumbers("Longitude: ");
-            dist = getNumbers("Max Distance: ");
+            lat = management.getNumbers("Latitude: ");
+            while (lat < -90 || lat > 90){
+                cout << "Invalid Latitude Range: [-90.0,90.0]\n";
+                lat = management.getNumbers("Latitude: ");
+            }
+            lon = management.getNumbers("Longitude: ");
+            while (lon < -180 || lon > 180){
+                cout << "Invalid Longitude Range: [-180.0,180.0]";
+                lon = management.getNumbers("Longitude: ");
+            }
+            dist = management.getNumbers("Max Distance: ");
 
             queue<int> airports;
 
             for (auto i : management.getAirportNode()){
-                if (haversine(i.first.getLatitude(), i.first.getLongitude(), lat, lon) < dist)
+                if (management.haversine(i.first.getLatitude(), i.first.getLongitude(), lat, lon) < dist)
                     airports.push(i.second);
             }
             return airports;
         } else cout << "invalid input\n\n";
     }
-}
-
-double MenuTravel::getNumbers(string output){
-    bool fail = true;
-    string num;
-    double converted;
-    while (fail){
-        cout << output;
-        getline(cin, num);
-        fail = false;
-        try{
-            converted = stod(num);
-        } catch (invalid_argument){
-            fail = true;
-            cout << "invalid input\n";
-        }
-    }
-    return converted;
 }

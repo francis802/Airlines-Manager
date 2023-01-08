@@ -34,16 +34,19 @@ bool MenuNetworkStats::globalStatsMenu() {
         cout << "1 - ARTICULATION POINTS\n";
         cout << "2 - DIAMETER\n";
         cout << "3 - CONNECTED COMPONENTS\n";
+        cout << "4 - STRONGLY CONNECTED COMPONENTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
         if (option == "1")
             globalArticulationPoints();
-        if (option == "2")
+        else if (option == "2")
             globalDiameter();
-        if (option == "3")
+        else if (option == "3")
             globalConnectedComponents();
+        else if (option == "4")
+            globalSCC();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -57,13 +60,14 @@ bool MenuNetworkStats::continentalStatsMenu() {
         cout << "1 - ARTICULATION POINTS\n";
         cout << "2 - DIAMETER\n";
         cout << "3 - CONNECTED COMPONENTS\n";
+        cout << "4 - STRONGLY CONNECTED COMPONENTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
         if (option == "r") return false;
         else if (option == "q") return true;
-        else if (option == "1" || option == "2" || option == "3"){
+        else if (option == "1" || option == "2" || option == "3" || option == "4"){
             cout << "-> CHOOSE CONTINENT:\n\n";
             cout << "1 - Africa\n";
             cout << "2 - Asia\n";
@@ -81,6 +85,8 @@ bool MenuNetworkStats::continentalStatsMenu() {
                     continentalDiameter(selected);
                 if (option == "3")
                     continentalConnectedComponents(selected);
+                if (option == "4")
+                    continentalSCC(selected);
             }
             else cout << "Invalid input\n";
         }
@@ -95,6 +101,7 @@ bool MenuNetworkStats::countryStatsMenu() {
         cout << "1 - ARTICULATION POINTS\n";
         cout << "2 - DIAMETER\n";
         cout << "3 - CONNECTED COMPONENTS\n";
+        cout << "4 - STRONGLY CONNECTED COMPONENTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -115,6 +122,11 @@ bool MenuNetworkStats::countryStatsMenu() {
             cout << "Country: ";
             getline(cin, country);
             countryConnectedComponents(country);
+        }
+        else if (option == "4"){
+            cout << "Country: ";
+            getline(cin, country);
+            countrySCC(country);
         }
         else cout << "Invalid input\n";
     }
@@ -175,7 +187,7 @@ void MenuNetworkStats::continentalDiameter(int option) {
     cout << "Diameter in " << continents[option] << ": " << diameter << "\n";
 }
 
-void MenuNetworkStats::countryDiameter(std::string country) {
+void MenuNetworkStats::countryDiameter(string country) {
     bool found = false;
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
@@ -205,7 +217,7 @@ void MenuNetworkStats::continentalConnectedComponents(int option) {
     cout << "Connected Components in " << continents[option] << ": " << cc << "\n";
 }
 
-void MenuNetworkStats::countryConnectedComponents(std::string country) {
+void MenuNetworkStats::countryConnectedComponents(string country) {
     bool found = false;
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
@@ -219,6 +231,36 @@ void MenuNetworkStats::countryConnectedComponents(std::string country) {
     }
     int cc = graph.getCountryConnectedComponents(map, country);
     cout << "Connected Components in " << country << ": " << cc << "\n";
+}
+
+void MenuNetworkStats::globalSCC() {
+    Graph graph = management.getFlights();
+    list<list<int>> globalConnectedComponents = graph.getGlobalSCC();
+    cout << "Global Strongly Connected Components: " << globalConnectedComponents.size() << "\n";
+}
+
+void MenuNetworkStats::continentalSCC(int option) {
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
+    list<list<int>> scc = graph.getContinentalSCC(map, getCountriesOf(continents[option]));
+    cout << "Strongly Connected Components in " << continents[option] << ": " << scc.size() << "\n";
+}
+
+void MenuNetworkStats::countrySCC(string country) {
+    bool found = false;
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    for (int i=1;i<map.size();i++){
+        if (map[i]->getCountry() == country)
+            found = true;
+    }
+    if (!found) {
+        cout << "No country with such name\n";
+        return;
+    }
+    list<list<int>> scc = graph.getCountrySCC(map, country);
+    cout << "Strongly Connected Components in " << country << ": " << scc.size() << "\n";
 }
 
 unordered_set<string> MenuNetworkStats::getCountriesOf(const string& continent) {

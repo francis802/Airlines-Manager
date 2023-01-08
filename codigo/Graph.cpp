@@ -87,6 +87,34 @@ void Graph::dfs_cc(int v) {
     }
 }
 
+void Graph::dfs_scc(int v, stack<int> *S, int index, list<list<int>> *result) {
+    nodes[v].num = index; nodes[v].low = index;
+    index++;
+    S->push(v); nodes[v].inStack = true;
+    for (auto e:nodes[v].adj){
+        int w = e.dest;
+        if (nodes[w].num == -1){
+            dfs_scc(w,S,index, result);
+            nodes[v].low = min(nodes[v].low,nodes[w].low);
+        }
+        else if (nodes[w].inStack){
+            nodes[v].low = min(nodes[v].low,nodes[w].num);
+        }
+    }
+    if (nodes[v].num == nodes[v].low){
+        list<int> temp;
+        int w = S->top();
+        S->pop(); nodes[w].inStack = false;
+        temp.push_back(w);
+        while (w != v){
+            w = S->top();
+            S->pop(); nodes[w].inStack = false;
+            temp.push_back(w);
+        }
+        result->push_back(temp);
+    }
+}
+
 vector<int> Graph::getGlobalArticulationPoints() {
     stack<int> S;
     vector<int> result;
@@ -284,3 +312,61 @@ int Graph::getCountryConnectedComponents(unordered_map<int, const Airport *> map
     }
     return count;
 }
+
+list<list<int>> Graph::getGlobalSCC() {
+    stack<int> S;
+    list<list<int>> result;
+    int index = 1;
+    for (int v=1; v<=n; v++){
+        nodes[v].num = -1;
+        nodes[v].low = -1;
+        nodes[v].inStack = false;
+    }
+    for (int v=1; v<=n; v++){
+        if (nodes[v].num == -1){
+            dfs_scc(v, &S, index, &result);
+        }
+    }
+    return result;
+}
+
+list<list<int>> Graph::getContinentalSCC(unordered_map<int, const Airport *> map, unordered_set<string> countries) {
+    stack<int> S;
+    list<list<int>> result;
+    int index = 1;
+    for (int v=1; v<=n; v++){
+        if (countries.find(map[v]->getCountry()) == countries.end()){
+            nodes[v].num = -2;
+        }
+        else nodes[v].num = -1;
+        nodes[v].low = -1;
+        nodes[v].inStack = false;
+    }
+    for (int v=1; v<=n; v++){
+        if (nodes[v].num == -1){
+            dfs_scc(v, &S, index, &result);
+        }
+    }
+    return result;
+}
+
+list<list<int>> Graph::getCountrySCC(unordered_map<int, const Airport *> map, string country) {
+    stack<int> S;
+    list<list<int>> result;
+    int index = 1;
+    for (int v=1; v<=n; v++){
+        if (map[v]->getCountry() != country){
+            nodes[v].num = -2;
+        }
+        else nodes[v].num = -1;
+        nodes[v].low = -1;
+        nodes[v].inStack = false;
+    }
+    for (int v=1; v<=n; v++){
+        if (nodes[v].num == -1){
+            dfs_scc(v, &S, index, &result);
+        }
+    }
+    return result;
+}
+

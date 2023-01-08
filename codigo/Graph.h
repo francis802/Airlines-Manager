@@ -92,6 +92,8 @@ public:
 
     void dfs_cc(int v);
 
+    void dfs_scc(int v, stack<int> *S, int index, list<list<int>> *result);
+
     /**
      * Define os campos dos Nodes do grafo adequadamente, de modo a que seja realizada uma pesquisa por pontos de articulação em todos os Nodes.
      * @return Vetor contendo pontos de articulação
@@ -141,6 +143,10 @@ public:
     int getContinentalConnectedComponents(unordered_map<int, const Airport*> map, unordered_set<string> countries);
 
     int getCountryConnectedComponents(unordered_map<int, const Airport*> map, string country);
+
+    list<list<int>> getGlobalSCC();
+    list<list<int>> getContinentalSCC(unordered_map<int, const Airport*> map, unordered_set<string> countries);
+    list<list<int>> getCountrySCC(unordered_map<int, const Airport*> map, string country);
 
     /**
      * Getter dos nodes do grafo

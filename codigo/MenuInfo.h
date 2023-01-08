@@ -114,21 +114,21 @@ public:
     /**
      * \brief Pesquisa os aeroportos a que é possível chegar
      *
-     * Complexidade: O(|V|)
+     * Complexidade: O(|V|+|E|)
      */
     void indirectAirportsAvailable(int maxDist);
 
     /**
      * \brief Pesquisa os destinos a que é possível chegar
      *
-     * Complexidade: O(|V|)
+     * Complexidade: O(|V|+|E|)
      */
     void indirectDestinationsAvailable(int maxDist);
 
     /**
      * \brief Pesquisa os países a que é possível chegar
      *
-     * Complexidade: O(|V|)
+     * Complexidade: O(|V|+|E|)
      */
     void indirectCountriesAvailable(int maxDist);
 

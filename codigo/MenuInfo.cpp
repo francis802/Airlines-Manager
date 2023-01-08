@@ -1,4 +1,3 @@
-#include <set>
 #include "MenuInfo.h"
 
 MenuInfo::MenuInfo(const FlightManagement &management): Menu(management) {}

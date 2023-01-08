@@ -141,7 +141,8 @@ void MenuNetworkStats::countryArticulationPoints(string country) {
 
 void MenuNetworkStats::globalDiameter() {
     Graph graph = management.getFlights();
-    cout << "Global diameter: " << graph.getGlobalDiameter() << "\n";
+    int globalDiameter = graph.getGlobalDiameter();
+    cout << "Global diameter: " << globalDiameter << "\n";
 }
 
 unordered_set<string> MenuNetworkStats::getCountriesOf(const string& continent) {

@@ -154,38 +154,39 @@ vector<int> Graph::getCountryArticulationPoints(unordered_map<int, const Airport
     return result;
 }
 
-vector<int> Graph::getDistances(int u) {
+int Graph::getMaxDistance(int u) {
     for (int i=1; i<=n; i++) {
         nodes[i].visited = false;
+        nodes[i].dist = -1;
     }
-    vector<int> distance(n, 0);
+    int maxDistance = 0;
     queue<int> Q;
-    distance[u] = 0;
+    nodes[u].dist = 0;
     Q.push(u);
     nodes[u].visited = true;
     while (!Q.empty()) {
         int x = Q.front();
         Q.pop();
         for (auto e : nodes[x].adj) {
-            if (nodes[e.dest].visited) {
-                continue;
+            int w = e.dest;
+            if (!nodes[w].visited) {
+                nodes[w].dist = nodes[x].dist + 1;
+                Q.push(w);
+                nodes[w].visited = true;
+                if (nodes[w].dist>maxDistance)
+                    maxDistance = nodes[w].dist;
             }
-            distance[e.dest] = distance[x] + 1;
-            Q.push(e.dest);
-            nodes[e.dest].visited = true;
-
         }
     }
-    return distance;
+    return maxDistance;
 }
 
 int Graph::getGlobalDiameter() {
     int max = 0;
     for (int i = 1; i <= n; i++) {
-        for (int d : getDistances(i)) {
-            if (d > max) {
-                max = d;
-            }
+        int d = getMaxDistance(i);
+        if (d > max) {
+            max = d;
         }
     }
     return max;

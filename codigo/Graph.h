@@ -89,7 +89,7 @@ public:
      */
     void dfs_art(int v, stack<int> *S, int index);
 
-    void dfs_cc(int v, unordered_map<int, const Airport *> map = {}, unordered_set<std::string> countries = {});
+    void dfs_cc(int v);
 
     /**
      * Define os campos dos Nodes do grafo adequadamente, de modo a que seja realizada uma pesquisa por pontos de articulação em todos os Nodes.

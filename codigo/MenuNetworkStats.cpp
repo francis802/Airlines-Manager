@@ -55,13 +55,15 @@ bool MenuNetworkStats::continentalStatsMenu() {
     while (true) {
         cout << "-> CONTINENTAL STATS\n\n";
         cout << "1 - ARTICULATION POINTS\n";
+        cout << "2 - DIAMETER\n";
+        cout << "3 - CONNECTED COMPONENTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
         getline(cin, option);
         if (option == "r") return false;
         else if (option == "q") return true;
-        else if (option == "1"){
+        else if (option == "1" || option == "2" || option == "3"){
             cout << "-> CHOOSE CONTINENT:\n\n";
             cout << "1 - Africa\n";
             cout << "2 - Asia\n";
@@ -73,7 +75,12 @@ bool MenuNetworkStats::continentalStatsMenu() {
             getline(cin, continent);
             if (continent == "1" || continent == "2" || continent == "3" || continent == "4" || continent == "5" || continent == "6"){
                 int selected = stoi(continent)-1;
-                continentalArticulationPoints(selected);
+                if (option == "1")
+                    continentalArticulationPoints(selected);
+                if (option == "2")
+                    continentalDiameter(selected);
+                if (option == "3")
+                    continentalConnectedComponents(selected);
             }
             else cout << "Invalid input\n";
         }
@@ -86,6 +93,8 @@ bool MenuNetworkStats::countryStatsMenu() {
     while (true) {
         cout << "-> COUNTRY STATS\n\n";
         cout << "1 - ARTICULATION POINTS\n";
+        cout << "2 - DIAMETER\n";
+        cout << "3 - CONNECTED COMPONENTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -96,6 +105,16 @@ bool MenuNetworkStats::countryStatsMenu() {
             cout << "Country: ";
             getline(cin, country);
             countryArticulationPoints(country);
+        }
+        else if (option == "2"){
+            cout << "Country: ";
+            getline(cin, country);
+            countryDiameter(country);
+        }
+        else if (option == "3"){
+            cout << "Country: ";
+            getline(cin, country);
+            countryConnectedComponents(country);
         }
         else cout << "Invalid input\n";
     }
@@ -144,14 +163,62 @@ void MenuNetworkStats::countryArticulationPoints(string country) {
 
 void MenuNetworkStats::globalDiameter() {
     Graph graph = management.getFlights();
-    int globalDiameter = graph.getGlobalDiameter();
-    cout << "Global diameter: " << globalDiameter << "\n";
+    int diameter = graph.getGlobalDiameter();
+    cout << "Global diameter: " << diameter << "\n";
+}
+
+void MenuNetworkStats::continentalDiameter(int option) {
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
+    int diameter = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
+    cout << "Diameter in " << continents[option] << ": " << diameter << "\n";
+}
+
+void MenuNetworkStats::countryDiameter(std::string country) {
+    bool found = false;
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    for (int i=1;i<map.size();i++){
+        if (map[i]->getCountry() == country)
+            found = true;
+    }
+    if (!found) {
+        cout << "No country with such name\n";
+        return;
+    }
+    int diameter = graph.getCountryDiameter(map, country);
+    cout << "Diameter in " << country << ": " << diameter << "\n";
 }
 
 void MenuNetworkStats::globalConnectedComponents() {
     Graph graph = management.getFlights();
-    int globalConnectedComponents = graph.getConnectedComponents();
+    int globalConnectedComponents = graph.getGlobalConnectedComponents();
     cout << "Global connected components: " << globalConnectedComponents << "\n";
+}
+
+void MenuNetworkStats::continentalConnectedComponents(int option) {
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
+    int cc = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
+    cout << "Connected Components in " << continents[option] << ": " << cc << "\n";
+}
+
+void MenuNetworkStats::countryConnectedComponents(std::string country) {
+    bool found = false;
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    for (int i=1;i<map.size();i++){
+        if (map[i]->getCountry() == country)
+            found = true;
+    }
+    if (!found) {
+        cout << "No country with such name\n";
+        return;
+    }
+    int cc = graph.getCountryConnectedComponents(map, country);
+    cout << "Connected Components in " << country << ": " << cc << "\n";
 }
 
 unordered_set<string> MenuNetworkStats::getCountriesOf(const string& continent) {

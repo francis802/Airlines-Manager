@@ -77,8 +77,6 @@ public:
      * @param preferences Preferências do utilizador relativas às Airlines
      */
 
-    void dfs(int v);
-
     void bfs(queue<int> q, unordered_set<string> preferences);
 
     /**
@@ -90,6 +88,8 @@ public:
      * @param index número da visita atual
      */
     void dfs_art(int v, stack<int> *S, int index);
+
+    void dfs_cc(int v, unordered_map<int, const Airport *> map = {}, unordered_set<std::string> countries = {});
 
     /**
      * Define os campos dos Nodes do grafo adequadamente, de modo a que seja realizada uma pesquisa por pontos de articulação em todos os Nodes.
@@ -120,7 +120,7 @@ public:
      * @param u Nó inicial
      * @return Valor da distância de u até o nó mais distante de si
      */
-    int getMaxDistance(int u);
+    int getMaxDistance(int u, unordered_map<int, const Airport *> map = {}, unordered_set<std::string> countries = {});
 
     /**
      * \brief Determina o diâmetro do grafo, isto é, a maior distância entre dois nós
@@ -130,7 +130,16 @@ public:
      */
     int getGlobalDiameter();
 
-    int getConnectedComponents();
+    int getContinentalDiameter(unordered_map<int, const Airport*> map, unordered_set<string> countries);
+
+    int getCountryDiameter(unordered_map<int, const Airport*> map, string country);
+
+
+    int getGlobalConnectedComponents();
+
+    int getContinentalConnectedComponents(unordered_map<int, const Airport*> map, unordered_set<string> countries);
+
+    int getCountryConnectedComponents(unordered_map<int, const Airport*> map, string country);
 
     /**
      * Getter dos nodes do grafo

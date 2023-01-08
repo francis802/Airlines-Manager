@@ -64,12 +64,20 @@ public:
      */
     void globalDiameter();
 
+    void continentalDiameter(int option);
+
+    void countryDiameter(string country);
+
     /**
      * @param continent Continente
      * @return Todos os países do continente
      */
 
     void globalConnectedComponents();
+
+    void continentalConnectedComponents(int option);
+
+    void countryConnectedComponents(string country);
 
     unordered_set<string> getCountriesOf(const string& continent);
 };

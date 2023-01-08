@@ -12,15 +12,6 @@ void Graph::addFlight(int src, int dest, const Airline* airline) {
     nodes[src].adj.push_back({dest, airline});
 }
 
-void Graph::dfs(int v) {
-    nodes[v].visited = true;
-    for (auto e : nodes[v].adj) {
-        int w = e.dest;
-        if (!nodes[w].visited)
-            dfs(w);
-    }
-}
-
 void Graph::bfs(queue<int> q, unordered_set<string> preferences) {
     for (int i=1; i<=n; i++) {
         nodes[i].visited = false;
@@ -89,6 +80,18 @@ void Graph::dfs_art(int v, stack<int> *S, int index) {
     int temp = S->top();
     S->pop();
     nodes[temp].inStack = false;
+}
+
+void Graph::dfs_cc(int v, unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
+    nodes[v].visited = true;
+    for (auto e : nodes[v].adj) {
+        int w = e.dest;
+        if (!map.empty() && !countries.empty() && countries.find(map[w]->getCountry()) == countries.end()) {
+            continue;
+        }
+        if (!nodes[w].visited)
+            dfs_cc(w);
+    }
 }
 
 vector<int> Graph::getGlobalArticulationPoints() {
@@ -163,7 +166,7 @@ vector<int> Graph::getCountryArticulationPoints(unordered_map<int, const Airport
     return result;
 }
 
-int Graph::getMaxDistance(int u) {
+int Graph::getMaxDistance(int u, unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
     for (int i=1; i<=n; i++) {
         nodes[i].visited = false;
         nodes[i].dist = -1;
@@ -178,11 +181,14 @@ int Graph::getMaxDistance(int u) {
         Q.pop();
         for (auto e : nodes[x].adj) {
             int w = e.dest;
+            if (!map.empty() && !countries.empty() && countries.find(map[w]->getCountry()) == countries.end()) {
+                continue;
+            }
             if (!nodes[w].visited) {
                 nodes[w].dist = nodes[x].dist + 1;
                 Q.push(w);
                 nodes[w].visited = true;
-                if (nodes[w].dist>maxDistance)
+                if (nodes[w].dist > maxDistance)
                     maxDistance = nodes[w].dist;
             }
         }
@@ -201,12 +207,72 @@ int Graph::getGlobalDiameter() {
     return max;
 }
 
-int Graph::getConnectedComponents() {
+int Graph::getContinentalDiameter(unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
+    int max = 0;
+    for (int i = 1; i <= n; i++) {
+        if (countries.find(map[i]->getCountry()) == countries.end()) {
+            continue;
+        }
+        int d = getMaxDistance(i, map, countries);
+        if (d > max) {
+            max = d;
+        }
+    }
+    return max;
+}
+
+int Graph::getCountryDiameter(unordered_map<int, const Airport *> map, std::string country) {
+    int max = 0;
+    unordered_set<std::string> countries;
+    countries.insert(country);
+    for (int i = 1; i <= n; i++) {
+        if (countries.find(map[i]->getCountry()) == countries.end()) {
+            continue;
+        }
+        int d = getMaxDistance(i, map, countries);
+        if (d > max) {
+            max = d;
+        }
+    }
+    return max;
+}
+
+int Graph::getGlobalConnectedComponents() {
     int count = 0;
     for (int v = 1; v <= n; v++) {
         if (!nodes[v].visited) {
             count++;
-            dfs(v);
+            dfs_cc(v);
+        }
+    }
+    return count;
+}
+
+int Graph::getContinentalConnectedComponents(unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
+    int count = 0;
+    for (int v = 1; v <= n; v++) {
+        if (!map.empty() && !countries.empty() && countries.find(map[v]->getCountry()) == countries.end()) {
+            continue;
+        }
+        if (!nodes[v].visited) {
+            count++;
+            dfs_cc(v, map, countries);
+        }
+    }
+    return count;
+}
+
+int Graph::getCountryConnectedComponents(unordered_map<int, const Airport *> map, std::string country) {
+    int count = 0;
+    unordered_set<std::string> countries;
+    countries.insert(country);
+    for (int v = 1; v <= n; v++) {
+        if (!map.empty() && !countries.empty() && countries.find(map[v]->getCountry()) == countries.end()) {
+            continue;
+        }
+        if (!nodes[v].visited) {
+            count++;
+            dfs_cc(v, map, countries);
         }
     }
     return count;

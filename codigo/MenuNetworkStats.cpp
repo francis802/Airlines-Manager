@@ -36,6 +36,7 @@ bool MenuNetworkStats::globalStatsMenu() {
         cout << "3 - CONNECTED COMPONENTS\n";
         cout << "4 - STRONGLY CONNECTED COMPONENTS\n";
         cout << "5 - NODES & EDGES\n";
+        cout << "6 - TOP K BUSIEST AIRPORTS\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -50,6 +51,8 @@ bool MenuNetworkStats::globalStatsMenu() {
             globalSCC();
         else if (option == "5")
             nodesAndEdges();
+        else if (option == "6")
+            topKBusiestAirports();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -148,13 +151,42 @@ void MenuNetworkStats::nodesAndEdges() {
 
 }
 
+void MenuNetworkStats::topKBusiestAirports() {
+    string str_k;
+    int k;
+    bool trial = true;
+    Graph graph = management.getFlights();
+    auto map = management.getNodeAirport();
+    vector<pair<int,int>> busiestAirports = graph.topBusiestAirports();
+    while(trial) {
+        try {
+            cout << "Top K airports: ";
+            getline(cin, str_k);
+            k = stoi(str_k);
+            if(k>=graph.getNodes().size() || k<1)
+                throw std::invalid_argument("");
+            trial = false;
+        }
+        catch (...) {
+            cout << "Error: invalid number\n";
+            continue;
+        }
+    }
+
+    for (int num=1;num<=k;num++){
+        cout << num << ". " << map[busiestAirports[num-1].first]->getName()
+        << "(" << map[busiestAirports[num-1].first]->getCode() << ") -> "
+        << busiestAirports[num-1].second << " fights in/out\n";
+    }
+}
+
 void MenuNetworkStats::globalArticulationPoints() {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
     vector<int> aps = graph.getGlobalArticulationPoints();
     cout << "Number of global articulation points: " << aps.size() << "\n";
     for (int i : aps) {
-        cout << map[i]->getName() << "\n";
+        cout << map[i]->getName() << "(" << map[i]->getCode() << ")\n";
     }
 }
 

@@ -117,6 +117,8 @@ public:
     unordered_set<string> getCountriesOf(const string& continent);
 
     void nodesAndEdges();
+
+    void topKBusiestAirports();
 };
 
 #endif //NETWORKMANAGER_MENUNETWORKSTATS_H

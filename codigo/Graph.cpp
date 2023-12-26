@@ -391,3 +391,25 @@ list<list<int>> Graph::getCountrySCC(unordered_map<int, const Airport *> map, st
     return result;
 }
 
+vector<pair<int,int>> Graph::topBusiestAirports() {
+    vector<pair<int,int>> flights_in_out;
+    flights_in_out.push_back({0,-1});
+    for(int i=1; i<=n; i++){
+        flights_in_out.push_back({i,0});
+    }
+
+    for(int i=1; i<=n; i++){
+        auto source = &flights_in_out[i];
+        source->second += nodes[i].adj.size();
+        for(auto it = nodes[i].adj.begin(); it != nodes[i].adj.end(); it++){
+            auto dest = &flights_in_out[it->dest];
+            dest->second += 1;
+        }
+    }
+
+    sort(flights_in_out.begin(), flights_in_out.end(), [](pair<int,int>p1,pair<int,int>p2){
+        return p1.second>p2.second;
+    });
+
+    return flights_in_out;
+}

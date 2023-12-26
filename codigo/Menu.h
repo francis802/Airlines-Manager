@@ -5,6 +5,7 @@
 #include <vector>
 #include "FlightManagement.h"
 #include <iostream>
+#include <set>
 
 /**
  * Classe Menu

@@ -216,8 +216,15 @@ void MenuInfo::flightsAvailable() {
     int graph_pos = airport_node->second;
     auto nodes = flights.getNodes();
     auto node = nodes[graph_pos];
-    for (auto it = node.adj.begin(); it != node.adj.end();it++) counter++;
+    std::set<string> airlines;
+    for (auto it = node.adj.begin(); it != node.adj.end();it++){
+        counter++;
+        auto airline = it->airline;
+        auto code = airline->getCode();
+        airlines.insert(code);
+    }
     cout << "Airport " << code << " has " << counter << " flights\n";
+    cout << "These flights belong to " << airlines.size() <<" different airlines\n";
 }
 
 void MenuInfo::airlinesAvailable() {

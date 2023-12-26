@@ -187,7 +187,7 @@ vector<int> Graph::getCountryArticulationPoints(unordered_map<int, const Airport
     return result;
 }
 
-int Graph::getMaxDistance(int u, unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
+pair<int,int> Graph::getMaxDistance(int u, unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
     if (map.empty() && countries.empty()){
         for (int i=1; i<=n; i++){
             nodes[i].visited = false;
@@ -204,6 +204,7 @@ int Graph::getMaxDistance(int u, unordered_map<int, const Airport *> map, unorde
         }
     }
     int maxDistance = 0;
+    int mostDistantNode = -1;
     queue<int> Q;
     nodes[u].dist = 0;
     Q.push(u);
@@ -217,52 +218,66 @@ int Graph::getMaxDistance(int u, unordered_map<int, const Airport *> map, unorde
                 nodes[w].dist = nodes[x].dist + 1;
                 Q.push(w);
                 nodes[w].visited = true;
-                if (nodes[w].dist > maxDistance)
+                if (nodes[w].dist > maxDistance) {
                     maxDistance = nodes[w].dist;
+                    mostDistantNode = w;
+                }
             }
         }
     }
-    return maxDistance;
+    return {maxDistance, mostDistantNode};
 }
 
-int Graph::getGlobalDiameter() {
+pair<int,pair<int,int>> Graph::getGlobalDiameter() {
     int max = 0;
+    int source = 0;
+    int dest = 0;
     for (int i = 1; i <= n; i++) {
-        int d = getMaxDistance(i);
-        if (d > max) {
-            max = d;
+        pair<int,int> pair = getMaxDistance(i);
+        if (pair.first > max) {
+            max = pair.first;
+            source = i;
+            dest = pair.second;
         }
     }
-    return max;
+    return {max,{source, dest}};
 }
 
-int Graph::getContinentalDiameter(unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
+pair<int,pair<int,int>> Graph::getContinentalDiameter(unordered_map<int, const Airport *> map, unordered_set<std::string> countries) {
     int max = 0;
+    int source = 0;
+    int dest = 0;
     for (int i = 1; i <= n; i++) {
         if (countries.find(map[i]->getCountry()) != countries.end()) {
-            int d = getMaxDistance(i, map, countries);
-            if (d > max) {
-                max = d;
+            pair<int,int> pair = getMaxDistance(i, map, countries);
+            if (pair.first > max) {
+                max = pair.first;
+                source = i;
+                dest = pair.second;
             }
         }
     }
-    return max;
+    return {max,{source, dest}};
 }
 
-int Graph::getCountryDiameter(unordered_map<int, const Airport *> map, std::string country) {
+pair<int,pair<int,int>> Graph::getCountryDiameter(unordered_map<int, const Airport *> map, std::string country) {
     int max = 0;
+    int source = 0;
+    int dest = 0;
     unordered_set<std::string> countries;
     countries.insert(country);
     for (int i = 1; i <= n; i++) {
         if (countries.find(map[i]->getCountry()) == countries.end()) {
             continue;
         }
-        int d = getMaxDistance(i, map, countries);
-        if (d > max) {
-            max = d;
+        pair<int,int> pair = getMaxDistance(i, map, countries);
+        if (pair.first > max) {
+            max = pair.first;
+            source = i;
+            dest = pair.second;
         }
     }
-    return max;
+    return {max,{source, dest}};
 }
 
 int Graph::getGlobalConnectedComponents() {

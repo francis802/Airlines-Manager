@@ -138,17 +138,17 @@ public:
      * @param u Nó inicial
      * @param map mapa dos aeroportos a serem incluídos na pesquisa em que a chave é o número do node e o value um apontador para o aeroporto
      * @param countries países a incluir na pesquisa
-     * @return Valor da distância de u até o nó mais distante de si
+     * @return Valor da distância de u até o nó mais distante de si, e o indíce do nó mais distante
      */
-    int getMaxDistance(int u, unordered_map<int, const Airport *> map = {}, unordered_set<std::string> countries = {});
+    pair<int,int> getMaxDistance(int u, unordered_map<int, const Airport *> map = {}, unordered_set<std::string> countries = {});
 
     /**
      * \brief Determina o diâmetro do grafo, isto é, a maior distância entre dois nós
      *
      * Complexidade O(|V|*(|V|+|E|))
-     * @return Diâmetro do grafo
+     * @return Diâmetro do grafo, e o par source-dest nodes
      */
-    int getGlobalDiameter();
+    pair<int,pair<int,int>> getGlobalDiameter();
 
     /**
      * \brief Determina o diâmetro do grafo para um determinado continente, isto é, a maior distância entre dois nós
@@ -156,9 +156,9 @@ public:
      * Complexidade O(|V|*(|V|+|E|))
      * @param map map em que a chave é o número do node e o value um apontador de um aeroporto
      * @param countries países pertencentes ao continente a fazer a pesquisa
-     * @return Diâmetro do grafo para um determinado continente
+     * @return Diâmetro do grafo para um determinado continente, e o par source-dest nodes
      */
-    int getContinentalDiameter(unordered_map<int, const Airport*> map, unordered_set<string> countries);
+    pair<int,pair<int,int>> getContinentalDiameter(unordered_map<int, const Airport*> map, unordered_set<string> countries);
 
     /**
      * \brief Determina o diâmetro do grafo para um determinado país, isto é, a maior distância entre dois nós
@@ -166,9 +166,9 @@ public:
      * Complexidade O(|V|*(|V|+|E|))
      * @param map map em que a chave é o número do node e o value um apontador de um aeroporto
      * @param country País a efetuar a pesquisa
-     * @return Diâmetro do grafo para um determinado país
+     * @return Diâmetro do grafo para um determinado país, e o par source-dest nodes
      */
-    int getCountryDiameter(unordered_map<int, const Airport*> map, string country);
+    pair<int,pair<int,int>> getCountryDiameter(unordered_map<int, const Airport*> map, string country);
 
     /**
      * \brief Determina o número de componentes conexos

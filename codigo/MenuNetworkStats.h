@@ -115,6 +115,8 @@ public:
      * @return Todos os países do continente
      */
     unordered_set<string> getCountriesOf(const string& continent);
+
+    void nodesAndEdges();
 };
 
 #endif //NETWORKMANAGER_MENUNETWORKSTATS_H

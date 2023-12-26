@@ -26,7 +26,7 @@ bool MenuTravel::start() {
     flights.bfs(departure, preferences);
 
     list<int> min_arrival;
-    int num_flights = INT32_MAX;
+    int num_flights = INT_MAX;
     while (!arrival.empty()){
         int dist = flights.getNodes()[arrival.front()].dist;
         if (dist < num_flights && dist != -1)
@@ -35,7 +35,7 @@ bool MenuTravel::start() {
         arrival.pop();
     }
 
-    if (num_flights == INT32_MAX){
+    if (num_flights == INT_MAX){
         cout << "Not possible to reach destination with current preferences\n";
         return false;
     }

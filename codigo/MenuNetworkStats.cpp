@@ -35,6 +35,7 @@ bool MenuNetworkStats::globalStatsMenu() {
         cout << "2 - DIAMETER\n";
         cout << "3 - CONNECTED COMPONENTS\n";
         cout << "4 - STRONGLY CONNECTED COMPONENTS\n";
+        cout << "5 - NODES & EDGES\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -47,6 +48,8 @@ bool MenuNetworkStats::globalStatsMenu() {
             globalConnectedComponents();
         else if (option == "4")
             globalSCC();
+        else if (option == "5")
+            nodesAndEdges();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -132,6 +135,19 @@ bool MenuNetworkStats::countryStatsMenu() {
     }
 }
 
+void MenuNetworkStats::nodesAndEdges() {
+    Graph graph = management.getFlights();
+    auto nodes = graph.getNodes();
+    int numNodes = nodes.size()-1;
+    int numEdges = 0;
+    for(auto node:nodes){
+        numEdges += node.adj.size();
+    }
+    cout << "Number of airports: " << numNodes << "\n";
+    cout << "Number of flights: " << numEdges << "\n";
+
+}
+
 void MenuNetworkStats::globalArticulationPoints() {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
@@ -175,16 +191,26 @@ void MenuNetworkStats::countryArticulationPoints(string country) {
 
 void MenuNetworkStats::globalDiameter() {
     Graph graph = management.getFlights();
-    int diameter = graph.getGlobalDiameter();
+    pair<int,pair<int,int>> pair = graph.getGlobalDiameter();
+    int diameter = pair.first;
+    auto source_dest = pair.second;
+    auto source = management.getNodeAirport().find(source_dest.first);
+    auto dest = management.getNodeAirport().find(source_dest.second);
     cout << "Global diameter: " << diameter << "\n";
+    cout << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
 }
 
 void MenuNetworkStats::continentalDiameter(int option) {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
     vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
-    int diameter = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
+    pair<int,pair<int,int>> pair = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
+    int diameter = pair.first;
+    auto source_dest = pair.second;
+    auto source = management.getNodeAirport().find(source_dest.first);
+    auto dest = management.getNodeAirport().find(source_dest.second);
     cout << "Diameter in " << continents[option] << ": " << diameter << "\n";
+    cout << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
 }
 
 void MenuNetworkStats::countryDiameter(string country) {
@@ -199,8 +225,13 @@ void MenuNetworkStats::countryDiameter(string country) {
         cout << "No country with such name\n";
         return;
     }
-    int diameter = graph.getCountryDiameter(map, country);
+    pair<int,pair<int,int>> pair = graph.getCountryDiameter(map, country);
+    int diameter = pair.first;
+    auto source_dest = pair.second;
+    auto source = management.getNodeAirport().find(source_dest.first);
+    auto dest = management.getNodeAirport().find(source_dest.second);
     cout << "Diameter in " << country << ": " << diameter << "\n";
+    cout << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
 }
 
 void MenuNetworkStats::globalConnectedComponents() {

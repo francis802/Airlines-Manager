@@ -148,7 +148,7 @@ public:
      * Complexidade O(|V|*(|V|+|E|))
      * @return Diâmetro do grafo, e o par source-dest nodes
      */
-    pair<int,pair<int,int>> getGlobalDiameter();
+    pair<int,vector<pair<int,int>>> getGlobalDiameter();
 
     /**
      * \brief Determina o diâmetro do grafo para um determinado continente, isto é, a maior distância entre dois nós
@@ -158,7 +158,7 @@ public:
      * @param countries países pertencentes ao continente a fazer a pesquisa
      * @return Diâmetro do grafo para um determinado continente, e o par source-dest nodes
      */
-    pair<int,pair<int,int>> getContinentalDiameter(unordered_map<int, const Airport*> map, unordered_set<string> countries);
+    pair<int,vector<pair<int,int>>> getContinentalDiameter(unordered_map<int, const Airport*> map, unordered_set<string> countries);
 
     /**
      * \brief Determina o diâmetro do grafo para um determinado país, isto é, a maior distância entre dois nós
@@ -168,7 +168,7 @@ public:
      * @param country País a efetuar a pesquisa
      * @return Diâmetro do grafo para um determinado país, e o par source-dest nodes
      */
-    pair<int,pair<int,int>> getCountryDiameter(unordered_map<int, const Airport*> map, string country);
+    pair<int,vector<pair<int,int>>> getCountryDiameter(unordered_map<int, const Airport*> map, string country);
 
     /**
      * \brief Determina o número de componentes conexos

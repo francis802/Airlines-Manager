@@ -191,26 +191,28 @@ void MenuNetworkStats::countryArticulationPoints(string country) {
 
 void MenuNetworkStats::globalDiameter() {
     Graph graph = management.getFlights();
-    pair<int,pair<int,int>> pair = graph.getGlobalDiameter();
+    pair<int,vector<pair<int,int>>> pair = graph.getGlobalDiameter();
     int diameter = pair.first;
-    auto source_dest = pair.second;
-    auto source = management.getNodeAirport().find(source_dest.first);
-    auto dest = management.getNodeAirport().find(source_dest.second);
     cout << "Global diameter: " << diameter << "\n";
-    cout << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
+    for(auto source_dest:pair.second){
+        auto source = management.getNodeAirport().find(source_dest.first);
+        auto dest = management.getNodeAirport().find(source_dest.second);
+        cout << "\t" << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
+    }
 }
 
 void MenuNetworkStats::continentalDiameter(int option) {
     Graph graph = management.getFlights();
     auto map = management.getNodeAirport();
     vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
-    pair<int,pair<int,int>> pair = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
+    pair<int,vector<pair<int,int>>> pair = graph.getContinentalDiameter(map, getCountriesOf(continents[option]));
     int diameter = pair.first;
-    auto source_dest = pair.second;
-    auto source = management.getNodeAirport().find(source_dest.first);
-    auto dest = management.getNodeAirport().find(source_dest.second);
-    cout << "Diameter in " << continents[option] << ": " << diameter << "\n";
-    cout << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
+    cout << "Global diameter: " << diameter << "\n";
+    for(auto source_dest:pair.second){
+        auto source = management.getNodeAirport().find(source_dest.first);
+        auto dest = management.getNodeAirport().find(source_dest.second);
+        cout << "\t" << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
+    }
 }
 
 void MenuNetworkStats::countryDiameter(string country) {
@@ -225,13 +227,14 @@ void MenuNetworkStats::countryDiameter(string country) {
         cout << "No country with such name\n";
         return;
     }
-    pair<int,pair<int,int>> pair = graph.getCountryDiameter(map, country);
+    pair<int,vector<pair<int,int>>> pair = graph.getCountryDiameter(map, country);
     int diameter = pair.first;
-    auto source_dest = pair.second;
-    auto source = management.getNodeAirport().find(source_dest.first);
-    auto dest = management.getNodeAirport().find(source_dest.second);
-    cout << "Diameter in " << country << ": " << diameter << "\n";
-    cout << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
+    cout << "Global diameter: " << diameter << "\n";
+    for(auto source_dest:pair.second){
+        auto source = management.getNodeAirport().find(source_dest.first);
+        auto dest = management.getNodeAirport().find(source_dest.second);
+        cout << "\t" << source->second->getName() << "(" << source->second->getCode() << ") -> " << dest->second->getName() << "("<< dest->second->getCode() << ")\n";
+    }
 }
 
 void MenuNetworkStats::globalConnectedComponents() {

@@ -16,3 +16,7 @@ const string &Airline::getCountry() const {
 bool Airline::operator==(const Airline &rhs) const {
     return code == rhs.code;
 }
+
+const string &Airline::getName() const {
+    return name;
+}

@@ -234,6 +234,10 @@ public:
     vector<Node> getNodes();
 
     vector<pair<int,int>> topBusiestAirports();
+
+    vector<pair<const Airline*, int>> getFlightsPerAirline();
+
+    vector<pair<string, int>> getFlightsPerCity(unordered_map<int, const Airport*> airports);
 };
 
 

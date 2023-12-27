@@ -39,6 +39,8 @@ public:
      */
     const string &getCountry() const;
 
+    const string &getName() const;
+
     /**
      * Overload do operator "=="
      * @param rhs Airline para comparar

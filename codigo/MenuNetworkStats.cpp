@@ -37,6 +37,8 @@ bool MenuNetworkStats::globalStatsMenu() {
         cout << "4 - STRONGLY CONNECTED COMPONENTS\n";
         cout << "5 - NODES & EDGES\n";
         cout << "6 - TOP K BUSIEST AIRPORTS\n";
+        cout << "7 - TOTAL FLIGHTS PER CITY\n";
+        cout << "8 - TOTAL FLIGHTS PER AIRLINE\n";
 
         cout << "\n type 'q' to quit, 'r' to return\n";
         cout << "==================================================\n";
@@ -53,6 +55,10 @@ bool MenuNetworkStats::globalStatsMenu() {
             nodesAndEdges();
         else if (option == "6")
             topKBusiestAirports();
+        else if (option == "7")
+            flightPerCity();
+        else if (option == "8")
+            flightPerAirline();
         else if (option == "r") return false;
         else if (option == "q") return true;
         else cout << "Invalid input\n";
@@ -366,4 +372,22 @@ unordered_set<string> MenuNetworkStats::getCountriesOf(const string& continent) 
                              "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu", "Wallis and Futuna"}}
     });
     return continents[continent];
+}
+
+void MenuNetworkStats::flightPerCity(){
+    Graph graph = management.getFlights();
+    auto airports = management.getNodeAirport();
+    vector<pair<string, int>> flights_city = graph.getFlightsPerCity(airports);
+    for(auto pair:flights_city){
+        cout << pair.first << ": " << pair.second << " flights in/out of the city\n";
+    }
+}
+
+void MenuNetworkStats::flightPerAirline(){
+    Graph graph = management.getFlights();
+    vector<pair<const Airline*, int>> flights_airline = graph.getFlightsPerAirline();
+
+    for(auto pair:flights_airline){
+        cout << pair.first->getName() << "(" << pair.first->getCode() << "): " << pair.second << " flights\n";
+    }
 }

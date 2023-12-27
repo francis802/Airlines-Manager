@@ -119,6 +119,10 @@ public:
     void nodesAndEdges();
 
     void topKBusiestAirports();
+
+    void flightPerCity();
+
+    void flightPerAirline();
 };
 
 #endif //NETWORKMANAGER_MENUNETWORKSTATS_H

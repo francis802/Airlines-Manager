@@ -413,3 +413,54 @@ vector<pair<int,int>> Graph::topBusiestAirports() {
 
     return flights_in_out;
 }
+
+vector<pair<const Airline*, int>> Graph::getFlightsPerAirline(){
+    unordered_map<const Airline*, int> map;
+
+    for(int v=1; v<=n; v++){
+        for(auto it = nodes[v].adj.begin(); it != nodes[v].adj.end(); it++){
+            auto finder = map.find(it->airline);
+            if (finder == map.end()){
+                map.insert({it->airline, 1});
+            }
+            else {
+                finder->second++;
+            }
+
+        }
+    }
+    vector<pair<const Airline*, int>> flights_airline(map.begin(), map.end());
+    sort(flights_airline.begin(), flights_airline.end(), [](pair<const Airline*, int>p1,pair<const Airline*, int>p2){
+        return p1.second > p2.second;
+    });
+    return flights_airline;
+}
+
+vector<pair<string, int>> Graph::getFlightsPerCity(unordered_map<int, const Airport*> airports){
+    unordered_map<string, int> map;
+
+    for(int v=1; v<=n; v++){
+        auto source = map.find(airports.find(v)->second->getCity());
+        if(source == map.end()){
+            map.insert({airports.find(v)->second->getCity(), nodes[v].adj.size()});
+        }
+        else{
+            source->second += nodes[v].adj.size();
+        }
+        for(auto it = nodes[v].adj.begin(); it != nodes[v].adj.end(); it++){
+            auto dest = map.find(airports.find(it->dest)->second->getCity());
+            if (dest == map.end()){
+                map.insert({airports.find(it->dest)->second->getCity(), 1});
+            }
+            else {
+                dest->second++;
+            }
+
+        }
+    }
+    vector<pair<string, int>> flights_airline(map.begin(), map.end());
+    sort(flights_airline.begin(), flights_airline.end(), [](pair<string, int>p1,pair<string, int>p2){
+        return p1.second > p2.second;
+    });
+    return flights_airline;
+}

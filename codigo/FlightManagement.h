@@ -111,6 +111,8 @@ public:
      */
     Graph &getFlights();
 
+    Graph &getFlightsBidirected();
+
 private:
     unordered_map<Airport,int, AirportHash> airport_node;
     unordered_map<int, const Airport*> node_airport;
@@ -118,6 +120,7 @@ private:
     unordered_map<string, list<const Airport*>> city_airports;
 
     Graph flights;
+    Graph flights_bidirected;
 };
 
 

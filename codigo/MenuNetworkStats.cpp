@@ -187,7 +187,7 @@ void MenuNetworkStats::topKBusiestAirports() {
 }
 
 void MenuNetworkStats::globalArticulationPoints() {
-    Graph graph = management.getFlights();
+    Graph graph = management.getFlightsBidirected();
     auto map = management.getNodeAirport();
     vector<int> aps = graph.getGlobalArticulationPoints();
     cout << "Number of global articulation points: " << aps.size() << "\n";
@@ -197,7 +197,7 @@ void MenuNetworkStats::globalArticulationPoints() {
 }
 
 void MenuNetworkStats::continentalArticulationPoints(int option) {
-    Graph graph = management.getFlights();
+    Graph graph = management.getFlightsBidirected();
     auto map = management.getNodeAirport();
     vector<string> continents = {"Africa", "Asia", "Europe", "North America", "Oceania", "South America"};
     vector<int> aps = graph.getContinentalArticulationPoints(map, getCountriesOf(continents[option]));
@@ -209,7 +209,7 @@ void MenuNetworkStats::continentalArticulationPoints(int option) {
 
 void MenuNetworkStats::countryArticulationPoints(string country) {
     bool found = false;
-    Graph graph = management.getFlights();
+    Graph graph = management.getFlightsBidirected();
     auto map = management.getNodeAirport();
     for (int i=1;i<map.size();i++){
         if (map[i]->getCountry() == country)

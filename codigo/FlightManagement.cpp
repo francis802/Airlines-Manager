@@ -7,6 +7,7 @@
 FlightManagement::FlightManagement(string airports, string airlines, string flights) {
     int num_airports = getDataAirport(airports);
     this->flights = Graph(num_airports);
+    this->flights_bidirected = Graph(num_airports);
     getDataAirline(airlines);
     getDataFlights(flights);
 }
@@ -74,6 +75,9 @@ void FlightManagement::getDataFlights(string filename) {
         const Airline* a = &(*(airlines.find(Airline(airline))));
 
         flights.addFlight(src,dest, a);
+
+        flights_bidirected.addFlight(src,dest,a);
+        flights_bidirected.addFlight(dest,src,a);
     }
 }
 
@@ -147,4 +151,8 @@ Graph &FlightManagement::getFlights(){
 
 const unordered_map<int, const Airport *> &FlightManagement::getNodeAirport() const {
     return node_airport;
+}
+
+Graph &FlightManagement::getFlightsBidirected() {
+    return flights_bidirected;
 }
